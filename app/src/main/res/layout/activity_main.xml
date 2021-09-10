@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".MainActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutInner"
+        android:layout_width="407dp"
+        android:layout_height="20pt"
+        android:background="@color/ciperDarkPurpleSimil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/writtedLogoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:contentDescription="@string/logo_description"
+            android:scaleX="2.1"
+            android:scaleY="2.1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_writed_logo" />
+
+        <Button
+            android:id="@+id/LogInButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-15dp"
+            android:background="@android:color/transparent"
+            android:importantForAccessibility="noHideDescendants"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/writtedLogoImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="30pt"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_nav_bar"
+        android:elevation="300dp"
+        android:outlineAmbientShadowColor="@color/ciper"
+        android:radius="5dp"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/nota"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="SPACE FOR SEARCH BAR "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutInner" />
+
+
+        <ImageView
+            android:id="@+id/underTextOfferte"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:contentDescription="@string/offert_under_text"
+            android:scaleX="2.7"
+            android:scaleY="2.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nota"
+            app:srcCompat="@drawable/offerte" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/offerte"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="-10dp"
+            android:elevation="300dp"
+            android:outlineAmbientShadowColor="@color/ciper"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:radius="5dp"
+
+            android:translationZ="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/underTextOfferte" />
+
+        <ImageView
+            android:id="@+id/staticCarrelliText"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="-8dp"
+            android:contentDescription="@string/static_text_oggetti"
+            android:scaleX="2.7"
+            android:scaleY="2.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/offerte"
+            app:srcCompat="@drawable/carello_text_light" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/carrelli"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/shape_carello_recycler"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/staticCarrelliText"
+        app:layout_constraintVertical_bias="0.01999998" />
+
+        <ImageView
+            android:id="@+id/nessunCarrello"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/titolo_carrello"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/staticCarrelliText"
+            app:srcCompat="@drawable/nessun_carrello" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CipeR</string>
+    <string name="login">Log In</string>
+    <string name="logo_description">logo text</string>
+    <string name="offert_under_text">Offerte</string>
+    <string name="product_image">Product image</string>
+    <string name="titolo_carrello">Titolo carrello</string>
+    <string name="start_button">Start</string>
+    <string name="static_text_oggetti">Oggetti</string>
+
+</resources>

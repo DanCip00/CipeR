@@ -1,0 +1,22 @@
+[
+  {
+    "newPrice": 134.54,
+    "sellerCod": 0,
+    "productCod": "8001120782328"
+  },
+  {
+    "newPrice": 5.5,
+    "sellerCod": 1,
+    "productCod" : "752737500"
+  },
+  {
+    "newPrice": 3.5,
+    "sellerCod": 0,
+    "productCod": "493625100"
+  },
+  {
+    "newPrice": 1.5,
+    "sellerCod": 1,
+    "productCod": "472007000"
+  }
+]
