@@ -1,4 +1,4 @@
-package it.ciper.viewOfferte;
+package it.ciper.home.viewOfferte;
 
 import android.net.Uri;
 import android.view.LayoutInflater;

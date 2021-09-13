@@ -48,4 +48,14 @@ public class JsonManager {
         }
         return null;
     }
+
+    public static <A> A parseJsonClass(String jsonFile, Class<A> classe){
+
+        try {
+            return objectMapper.readValue(jsonFile, classe);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

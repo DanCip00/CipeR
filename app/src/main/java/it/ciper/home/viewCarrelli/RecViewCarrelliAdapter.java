@@ -1,4 +1,4 @@
-package it.ciper.viewCarrelli;
+package it.ciper.home.viewCarrelli;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,18 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import it.ciper.MainActivity;
 import it.ciper.R;
 import it.ciper.dataClasses.*;
 import it.ciper.json.DownloadImageTask;
-import it.ciper.viewOfferte.RecViewOffertAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelliAdapter.ViewHolder> {

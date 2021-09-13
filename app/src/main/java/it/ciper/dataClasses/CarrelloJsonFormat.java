@@ -50,6 +50,7 @@ public class CarrelloJsonFormat {
     public String toString() {
         return "CarrelloJsonFormat{" +
                 "titolo='" + titolo + '\'' +
+                
                 ", prodCod=" + prodCod +
                 ", sellerCod=" + sellerCod +
                 '}';

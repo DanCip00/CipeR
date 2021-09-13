@@ -2,11 +2,11 @@
   {
     "sellerCod": 0,
     "sellerName" : "Coop",
-    "logo" : "https://comunica-re.it/wp-content/uploads/2017/07/coop-logo-300x171.png"
+    "logo" : "http://192.168.1.107/ciper/media/sellersLogo/coop.png"
   },
   {
     "sellerCod": 1,
     "sellerName" : "LIDL",
-    "logo" : "https://logosvector.net/wp-content/uploads/2013/03/lidl-vector-logo.png"
+    "logo" : "http://192.168.1.107/ciper/media/sellersLogo/lidel.png"
   }
 ]
