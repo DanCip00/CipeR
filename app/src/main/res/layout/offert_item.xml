@@ -28,7 +28,7 @@
         android:text="2,45€"
         android:textAlignment="center"
         android:textColor="@color/ciperRed"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/newPrice"
         app:layout_constraintStart_toStartOf="@+id/newPrice"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMaxTextSize="16sp"
         android:autoSizeMinTextSize="10sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"

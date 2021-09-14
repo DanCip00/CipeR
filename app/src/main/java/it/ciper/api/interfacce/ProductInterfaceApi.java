@@ -275,9 +275,12 @@ public interface ProductInterfaceApi {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, "{\n    \"apiKey\" : \""+apiKey+"\",\n    \"productcod\" : \""+productCod+"\"\n}");
+            RequestBody body = RequestBody.create(mediaType, "{\n" +
+                    "    \"apiKey\" : \""+apiKey+"\",\n" +
+                    "    \"productCod\" : \""+productCod+"\"\n" +
+                    "}");
             Request request = new Request.Builder()
-                    .url(serverDomain+"/product/getAllProduct")
+                    .url(serverDomain+"/product/getProduct")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .build();

@@ -12,17 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import it.ciper.R;
+import it.ciper.data.DataCenter;
+import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.dataClasses.Offerts;
 import it.ciper.json.DownloadImageTask;
 
 public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdapter.ViewHolder>{
 
+    List<ProductAndPriceAPI> topFiveOfferts ;
+    DataCenter dataCenter;
 
-    private ArrayList<Offerts> offerte = new ArrayList<>();
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,25 +38,29 @@ public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.productName.setText(offerte.get(position).getProdotto().getSummaryName());
-        holder.oldPrice.setText(offerte.get(position).getProdotto().getPrice()+"€");
-        holder.newPrice.setText(offerte.get(position).getNewPrice()+"€");
-        holder.productImage.setImageURI(Uri.parse(offerte.get(position).getProdotto().getSrcImage()));
+        holder.productName.setText(topFiveOfferts.get(position).getSummaryname());
+        holder.oldPrice.setText(topFiveOfferts.get(position).getPrice().getPrice()+"€");
+        holder.newPrice.setText(topFiveOfferts.get(position).getPrice().getOffertprice()+"€");
+
 
         new DownloadImageTask((ImageView) holder.productImage)
-                .execute(offerte.get(position).getProdotto().getSrcImage());
+                .execute(topFiveOfferts.get(position).getSrcimage());
 
         new DownloadImageTask((ImageView) holder.shopLogo)
-                .execute(offerte.get(position).getSeller().getLogo());
+                .execute(dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
+
+        System.out.println("PROD --->"+topFiveOfferts.get(position).getSrcimage());
+        System.out.println("LOGO --->"+dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
     }
 
     @Override
     public int getItemCount() {
-        return offerte.size();
+        return topFiveOfferts.size();
     }
 
-    public void setOfferte(LinkedList<Offerts> offerte) {
-        this.offerte = offerte.stream().collect(Collectors.toCollection(()->new ArrayList<>()));
+    public void setTopFiveOfferts(List<ProductAndPriceAPI> offerts, DataCenter dataCenter) {
+        topFiveOfferts = offerts;
+        this.dataCenter=dataCenter;
         notifyDataSetChanged();
     }
 

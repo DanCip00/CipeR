@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.api.interfacce.ProductInterfaceApi;
 import it.ciper.api.interfacce.ShopInterfaceApi;
+import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.dataClasses.Carrello;
@@ -37,7 +38,7 @@ import it.ciper.home.viewOfferte.RecViewOffertAdapter;
 public class MainActivity extends AppCompatActivity {
     //API
         final String apiKey = "b133a0c0e9bee3be20163d2ad31d6248db292aa6dcb1ee087a2aa50e0fc75ae2";
-
+    DataCenter dataCenter = new DataCenter(apiKey);
 
     LoadedData data = new LoadedData();
 
@@ -54,17 +55,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CarrelliInterfaceApi.cartProducts(apiKey, "791e2bf1-ddb4-4665-816b-7d5997c0588e").forEach(c->System.out.println(c));
-        loadDataFiles();
+
         //Gestione OFFERTE
         setContentView(R.layout.activity_main);
         adapter = new RecViewOffertAdapter();
-        adapter.setOfferte(data.offerte);
+        adapter.setTopFiveOfferts(dataCenter.getTopFiveOfferts(),dataCenter);
         recyclerViewOff = this.findViewById(R.id.offerte);
-        recyclerViewOff.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewOff.setAdapter(adapter);
+        recyclerViewOff.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
 
         //Gestione CARRELLI
+        /*
         System.out.println(data.carrelli);
         adapterCarrelli = new RecViewCarrelliAdapter();
         adapterCarrelli.setCarrelli(data.carrelli);
@@ -82,60 +84,12 @@ public class MainActivity extends AppCompatActivity {
             nessunCarrello.setVisibility(View.GONE);
         }else
             recyclerViewCarrelli.setVisibility(View.GONE);
+
+         */
     }
 
 
 
-    protected void loadDataFiles(){
 
-        InputStream inputStreamProd = null;
-        InputStream inputStreamOff = null;
-        InputStream inputStreamShop = null;
-        InputStream streamCarrelli = null;
 
-        try {
-            inputStreamProd = getAssets().open("prodotti_offerte.json");
-            inputStreamOff = getAssets().open("top_offerte.json");
-            inputStreamShop = getAssets().open("sellers.json");
-            streamCarrelli = getAssets().open("carrelli.json");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Prodotti
-        Product[] prodo = null;
-        prodo = JsonManager.parseJsonClass(inputStreamProd, Product[].class);
-        Arrays.stream(prodo).forEach(p->data.prodotti.put(p.getProductCod(), p));
-
-        //shop
-        Shop[] sellers = null;
-        sellers = JsonManager.parseJsonClass(inputStreamShop, Shop[].class);
-        Arrays.stream(sellers).forEach(s->data.negozi.put(s.getSellerCod(), s));
-
-        //Offerte
-        Offerts[] off = JsonManager.parseJsonClass(inputStreamOff, Offerts[].class);
-        Arrays.stream(off).peek(o->o.setProdotto(data.prodotti.get(o.getProductCod()))).forEach(o->data.offerte.add(o));
-        data.offerte.forEach(o->o.setSeller(data.negozi.get(o.getSellerCod())));
-
-        //Carrello
-        CarrelloJsonFormat[] cartJson = null;
-        cartJson = JsonManager.parseJsonClass(streamCarrelli,CarrelloJsonFormat[].class);
-
-        if (cartJson == null || cartJson.length== 0)
-            return;
-
-        Arrays.stream(cartJson).forEach(c->{
-            TreeSet<Product> prodotti = new TreeSet<>();
-            HashMap<Product,Long> quantity= c.getProdCod().stream().map(p->data.prodotti.get(p))
-                                                                   .peek(p-> prodotti.add(p))
-                                                                   .collect(Collectors.groupingBy(p->p,
-                                                                                                  ()-> new HashMap<>(),
-                                                                                                  Collectors.counting()));
-            data.carrelli.add(new Carrello(c.getTitolo(),c.getProdCod(),c.getSellerCod(),
-                                           data.negozi.get(c.getSellerCod()),
-                                           prodotti,quantity));
-
-        });
-    }
 }

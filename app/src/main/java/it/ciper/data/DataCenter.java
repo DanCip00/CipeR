@@ -1,5 +1,6 @@
 package it.ciper.data;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,11 @@ public class DataCenter {
     TreeMap<String, Map<Integer, ProductAndPriceAPI>> prodAndPriceCache = new TreeMap<>(); //@key _> ProductCod
     TreeMap<String, ProductAPI> productsAPI = new TreeMap<>();
 
-    TreeSet<ProductAndPriceAPI> topOfferts = new TreeSet<>();
+    LinkedList<ProductAndPriceAPI> topOfferts = new LinkedList<>();
     private int numOfferts = 0;
     private String apiKey=null;
-    DataCenter(String apiKey){
+
+    public DataCenter(String apiKey){
         super();
         this.apiKey = apiKey;
     }
@@ -96,12 +98,10 @@ public class DataCenter {
      */
     private void addOfferts(){
         numOfferts+=10;
+        //TODO Se offline è un disastro
         ProductInterfaceApi.getBestOfferts(apiKey,numOfferts).stream()
                 .peek(p->addPriceAPI(p))
-                .map(o->{
-                    ProductAndPriceAPI pap = getProductAndPriceAPI(o.getProductcod(),o.getSellercod());
-                    return pap;
-                })
+                .map(o->getProductAndPriceAPI(o.getProductcod(),o.getSellercod()))
                 .forEach(o->topOfferts.add(o));
     }
 
@@ -117,9 +117,9 @@ public class DataCenter {
     public ShopAPI getShopAPI(Integer sellerCod){
         if (shopsAPI.containsKey(sellerCod))
             return shopsAPI.get(sellerCod);
-        ShopAPI sh = ShopInterfaceApi.getAllShop(apiKey).stream().filter(s->s.getSellercod().compareTo(sellerCod)==0).findFirst().get();
-        shopsAPI.put(sh.getSellercod(),sh);
-        return sh;
+        shopsAPI.clear();
+        ShopInterfaceApi.getAllShop(apiKey).stream().forEach(s->shopsAPI.put(s.getSellercod(),s));
+        return shopsAPI.get(sellerCod);
     }
 
                         //Carrello
