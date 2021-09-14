@@ -3,7 +3,9 @@ package it.ciper.data;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
@@ -24,6 +26,8 @@ public class DataCenter {
     TreeMap<String, Map<Integer, ProductAndPriceAPI>> prodAndPriceCache = new TreeMap<>(); //@key _> ProductCod
     TreeMap<String, ProductAPI> productsAPI = new TreeMap<>();
 
+    TreeSet<ProductAndPriceAPI> topOfferts = new TreeSet<>();
+    private int numOfferts = 0;
     private String apiKey=null;
     DataCenter(String apiKey){
         super();
@@ -80,7 +84,33 @@ public class DataCenter {
         prodAndPriceCache.get(productCod).put(sellerCod,pap);
         return pap;
     }
+    public void addProductAndPriceAPI(ProductAndPriceAPI pap){
+        if( prodAndPriceCache.containsKey(pap.getProductcod()) && prodAndPriceCache.get(pap.getProductcod()).containsKey(pap.getPrice().getSellercod()))
+            return;
+        prodAndPriceCache.computeIfAbsent(pap.getProductcod(),(s)->new TreeMap<Integer, ProductAndPriceAPI>());
+        prodAndPriceCache.get(pap.getProductcod()).put(pap.getPrice().getSellercod(),pap);
+    }
+                        //Offert
+    /**
+     * Le offerte vengono aggiunte 10 per volta
+     */
+    private void addOfferts(){
+        numOfferts+=10;
+        ProductInterfaceApi.getBestOfferts(apiKey,numOfferts).stream()
+                .peek(p->addPriceAPI(p))
+                .map(o->{
+                    ProductAndPriceAPI pap = getProductAndPriceAPI(o.getProductcod(),o.getSellercod());
+                    return pap;
+                })
+                .forEach(o->topOfferts.add(o));
+    }
 
+    public List<ProductAndPriceAPI> getTopFiveOfferts(){
+        if (numOfferts<5)
+            addOfferts();
+        return topOfferts.stream().limit(5)
+                .collect(Collectors.toList());
+    }
 
                         //Shop
 

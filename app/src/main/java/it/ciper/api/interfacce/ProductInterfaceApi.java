@@ -288,9 +288,9 @@ public interface ProductInterfaceApi {
 
     static PriceAPI getPrice(String apiKey, String productCod, String sellerCod){
         String buf = null;
-        GetPrice GetPrice = new GetPrice();
-        GetPrice.setParams(apiKey, productCod, sellerCod);
-        Future<String> ris = executor.submit(GetPrice);
+        GetPrice getPrice = new GetPrice();
+        getPrice.setParams(apiKey, productCod, sellerCod);
+        Future<String> ris = executor.submit(getPrice);
         try {
             buf =ris.get();
         } catch (ExecutionException e) {
@@ -323,6 +323,49 @@ public interface ProductInterfaceApi {
                     "}");
             Request request = new Request.Builder()
                     .url(serverDomain+"/product/getPrice")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+    }
+
+    static List<PriceAPI> getBestOfferts(String apiKey, Integer limit){
+        String buf = null;
+        GetBestOfferts getBestOfferts = new GetBestOfferts();
+        getBestOfferts.setParams(apiKey, limit);
+        Future<String> ris = executor.submit(getBestOfferts);
+        try {
+            buf =ris.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        PriceAPI[] prodotti = JsonManager.parseJsonClass(buf,PriceAPI[].class);
+        if (prodotti.length==0)
+            return null;
+        return Arrays.stream(prodotti).collect(Collectors.toList());
+    }
+    class GetBestOfferts implements Callable<String>{
+        private String apiKey;
+        private Integer num;
+        void setParams(String apiKey, Integer num) {
+            this.apiKey = apiKey;
+            this.num = num;
+        }
+        @Override
+        public String call() throws Exception {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n" +
+                    "    \"apiKey\" : \""+apiKey+"\",\n" +
+                    "    \"num\": \""+num+"\"\n" +
+                    "}");
+            Request request = new Request.Builder()
+                    .url(serverDomain+"/product/getBestOfferts")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .build();
