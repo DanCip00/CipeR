@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CarrelliInterfaceApi.allProducts(apiKey, "791e2bf1-ddb4-4665-816b-7d5997c0588e").forEach(c->System.out.println(c));
+        CarrelliInterfaceApi.cartProducts(apiKey, "791e2bf1-ddb4-4665-816b-7d5997c0588e").forEach(c->System.out.println(c));
         loadDataFiles();
         //Gestione OFFERTE
         setContentView(R.layout.activity_main);

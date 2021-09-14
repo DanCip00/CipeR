@@ -1,6 +1,6 @@
 package it.ciper.data.dataClasses.shop;
 
-public class ShopAPI {
+public class ShopAPI implements Comparable<ShopAPI>{
     protected Integer sellercod;
     protected String srclogo, sellername, address;
     protected Double lat, lng;
@@ -52,5 +52,10 @@ public class ShopAPI {
                 ", lat=" + lat +
                 ", lng=" + lng +
                 '}';
+    }
+
+    @Override
+    public int compareTo(ShopAPI shopAPI) {
+        return this.sellercod.compareTo(shopAPI.getSellercod());
     }
 }

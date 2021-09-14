@@ -1,6 +1,6 @@
 package it.ciper.data.dataClasses.product;
 
-public class PriceAPI {
+public class PriceAPI implements Comparable<PriceAPI>{
     protected String productcod;
     protected Integer sellercod;
     protected Double price, offertprice;
@@ -51,5 +51,12 @@ public class PriceAPI {
                 ", offertprice=" + offertprice +
                 ", offert=" + offert +
                 '}';
+    }
+
+    @Override
+    public int compareTo(PriceAPI priceAPI) {
+        if (this.getProductcod().compareTo(priceAPI.getProductcod())==0)
+            return this.getSellercod().compareTo(priceAPI.getSellercod());
+        return this.getProductcod().compareTo(priceAPI.getProductcod());
     }
 }

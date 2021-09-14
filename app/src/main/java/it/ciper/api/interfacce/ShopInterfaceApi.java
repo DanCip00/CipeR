@@ -40,7 +40,7 @@ public interface ShopInterfaceApi {
 
 
 
-    static List<ShopAPI> getAllProduct(String apiKey){
+    static List<ShopAPI> getAllShop(String apiKey){
         String buf = null;
         GetAllShop getAllShop = new GetAllShop();
         getAllShop.setParams(apiKey);

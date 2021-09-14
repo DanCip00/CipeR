@@ -1,6 +1,6 @@
 package it.ciper.data.dataClasses.carrello;
 
-public class CarrelloAPI {
+public class CarrelloAPI implements Comparable<CarrelloAPI>{
     protected String cartcod, usernamecreator, titolo;
 
     public CarrelloAPI(String cartcod, String usernamecreator, String titolo) {
@@ -32,5 +32,10 @@ public class CarrelloAPI {
                 ", usernamecreator='" + usernamecreator + '\'' +
                 ", titolo='" + titolo + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(CarrelloAPI carrelloAPI) {
+        return this.cartcod.compareTo(carrelloAPI.getCartcod());
     }
 }

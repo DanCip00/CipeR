@@ -2,7 +2,7 @@ package it.ciper.data.dataClasses.carrello;
 
 
 
-public class CartItemAPI {
+public class CartItemAPI implements Comparable<CartItemAPI>{
     protected String cartcod, productcod, username;
     protected Integer  quantity, sellercod;
 
@@ -36,5 +36,18 @@ public class CartItemAPI {
 
     public Integer getSellercod() {
         return sellercod;
+    }
+
+    @Override
+    public int compareTo(CartItemAPI cartItemAPI) {
+        if (this.cartcod.compareTo(cartItemAPI.getCartcod())==0)
+            if (this.productcod.compareTo(cartItemAPI.getProductcod())==0)
+                if (this.sellercod.compareTo(cartItemAPI.getSellercod())==0)
+                    return this.getUsername().compareTo(cartItemAPI.getUsername());
+                else
+                    return this.sellercod.compareTo(cartItemAPI.getSellercod());
+            else
+                this.productcod.compareTo(cartItemAPI.getProductcod());
+        return this.cartcod.compareTo(cartItemAPI.getCartcod());
     }
 }

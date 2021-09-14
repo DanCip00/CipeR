@@ -1,6 +1,6 @@
 package it.ciper.data.dataClasses.product;
 
-public class ProductAPI {
+public class ProductAPI implements Comparable<ProductAPI>{
     protected String productcod, summaryname, name, description, srcimage, producer;
 
     public ProductAPI(String productcod, String summaryname, String name, String description, String srcimage, String producer) {
@@ -50,5 +50,10 @@ public class ProductAPI {
                 ", srcimage='" + srcimage + '\'' +
                 ", producer='" + producer + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(ProductAPI productAPI) {
+        return this.getProductcod().compareTo(productAPI.getProductcod());
     }
 }
