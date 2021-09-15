@@ -6,6 +6,7 @@
     <string name="product_image">Product image</string>
     <string name="titolo_carrello">Titolo carrello</string>
     <string name="start_button">Start</string>
+    <string name="mod_button">Modifica</string>
     <string name="static_text_oggetti">Oggetti</string>
 
 </resources>

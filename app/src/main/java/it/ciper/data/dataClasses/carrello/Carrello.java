@@ -17,7 +17,7 @@ public class Carrello extends CarrelloAPI{
     protected TreeMap<ShopAPI,List<CartItem>> cartItems = new TreeMap<ShopAPI, List<CartItem>>();
     protected TreeMap<ShopAPI, ShopCartInfoAPI> cartShopInfo = new TreeMap<>();
 
-    Carrello(DataCenter dataCenter, CarrelloAPI carrelloAPI){
+    public Carrello(DataCenter dataCenter, CarrelloAPI carrelloAPI){
         super(carrelloAPI.getCartcod(), carrelloAPI.getUsernamecreator(), carrelloAPI.getTitolo());
         this.dataCenter = dataCenter;
         this.carrelloAPI = carrelloAPI;
@@ -41,7 +41,10 @@ public class Carrello extends CarrelloAPI{
 
     void upDateCartShopInfo(){
         cartShopInfo = new TreeMap<>();
-        CarrelliInterfaceApi.getCartSellers(dataCenter.getApiKey(), carrelloAPI).stream()
+        List<ShopAPI> list =CarrelliInterfaceApi.getCartSellers(dataCenter.getApiKey(), carrelloAPI);
+        if (list ==null || list.size()==0)
+            return;
+        list.stream()
                 .forEach(s->cartShopInfo.put(s,CarrelliInterfaceApi.getProductForSellerInfo(dataCenter.getApiKey(), cartcod, s.getSellercod())));
     }
 

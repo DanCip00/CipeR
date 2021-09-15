@@ -20,8 +20,7 @@ import it.ciper.data.dataClasses.product.PriceAPI;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
 import it.ciper.data.dataClasses.shop.ShopCartInfoAPI;
-import it.ciper.dataClasses.Carrello;
-import it.ciper.dataClasses.Product;
+
 import it.ciper.json.JsonManager;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -288,6 +287,15 @@ public interface CarrelliInterfaceApi {
         }
     }
 
+    static List<ShopCartInfoAPI> getCartSellersInfoList(String apiKey, String cartCod){
+        List<ShopAPI> shops = getCartSellers(apiKey, cartCod);
+        LinkedList<ShopCartInfoAPI> infoList = new LinkedList<>();
+        if (shops==null || shops.size()==0)
+            return infoList;
+        shops.forEach((s)-> infoList.add(getProductForSellerInfo(apiKey,cartCod,s.getSellercod())));
+        return infoList;
+    }
+
     static List<ShopAPI> getCartSellers(String apiKey,CarrelloAPI cart){
         return getCartSellers(apiKey,cart.getCartcod());
     }
@@ -394,7 +402,14 @@ public interface CarrelliInterfaceApi {
         ShopCartInfoAPI[] cartItemsInfo = JsonManager.parseJsonClass(buf,ShopCartInfoAPI[].class);
         if (cartItemsInfo ==null || cartItemsInfo.length==0)
             return null;
-        return Arrays.stream(cartItemsInfo).collect(Collectors.toList()).get(0);
+        ShopCartInfoAPI item = Arrays.stream(cartItemsInfo).collect(Collectors.toList()).get(0);
+        item.setSellerCod(sellerCod);
+        item.setCartCod(cartCod);
+        if (item.getQuant()==null)
+            item.setQuant(0);
+        if (item.getPricesum()==null)
+            item.setPricesum(Double.valueOf(0));
+        return item;
     }
     class GetProductForSellerInfo implements Callable<String>{
         private String apiKey, cartCod;
@@ -411,8 +426,8 @@ public interface CarrelliInterfaceApi {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n" +
                     "    \"apiKey\" : \""+apiKey+"\",\n" +
-                    "    \"cartCod\": \""+cartCod+"\"\n" +
-                    "    \"sellerCod\": \""+sellerCod+"\"\n" +
+                    "    \"cartCod\": \""+cartCod+"\",\n" +
+                    "    \"sellerCod\": "+sellerCod+"\n" +
                     "}");
             Request request = new Request.Builder()
                     .url(serverDomain+"/cart/getProductForSellerInfo")

@@ -4,7 +4,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
-import it.ciper.dataClasses.Shop;
+
 
 public class CartItem extends CartItemAPI{
     protected CartItemAPI itemAPI;

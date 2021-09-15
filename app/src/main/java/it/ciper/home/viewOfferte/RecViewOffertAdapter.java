@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 import it.ciper.R;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
-import it.ciper.dataClasses.Offerts;
 import it.ciper.json.DownloadImageTask;
 
 public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdapter.ViewHolder>{

@@ -12,18 +12,23 @@ import java.util.stream.Collectors;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.api.interfacce.ProductInterfaceApi;
 import it.ciper.api.interfacce.ShopInterfaceApi;
+import it.ciper.data.dataClasses.carrello.Carrello;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.PriceAPI;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
-import it.ciper.dataClasses.Product;
+import it.ciper.data.dataClasses.*;
+
 
 public class DataCenter {
 
     TreeMap<String, Map<Integer, PriceAPI>> prices = new TreeMap<>(); //@key ->ProductCod @value ->Map of PriceAPI;
     TreeMap<Integer, ShopAPI> shopsAPI = new TreeMap<>();
+
     TreeMap<String, CarrelloAPI> cartsAPI = new TreeMap<>();
+    TreeMap<String, Carrello> carts = new TreeMap<>();
+
     TreeMap<String, Map<Integer, ProductAndPriceAPI>> prodAndPriceCache = new TreeMap<>(); //@key _> ProductCod
     TreeMap<String, ProductAPI> productsAPI = new TreeMap<>();
 
@@ -123,12 +128,25 @@ public class DataCenter {
     }
 
                         //Carrello
-    public List<CarrelloAPI> getAllCarrelli(){
+    public List<CarrelloAPI> getAllCarrelliAPI(){
         upDateCartsInfo();
+        if (cartsAPI.size()==0)
+            return null;
         return cartsAPI.values().stream().collect(Collectors.toList());
     }
 
-    public void upDateCartsInfo(){
+    public Carrello getCarrello(CarrelloAPI carrelloAPI){
+        if (carts.containsKey(carrelloAPI.getCartcod()))
+            return carts.get(carrelloAPI.getCartcod());
+        Carrello cart = new Carrello(this, carrelloAPI);
+        carts.put(cart.getCartcod(), cart);
+        return cart;
+    }
+    public Carrello getCarrello(String cartCod){
+        return getCarrello(getCarrelloAPI(cartCod));
+    }
+
+    private void upDateCartsInfo(){
         cartsAPI.clear();
         CarrelliInterfaceApi.getAllCarrelli(apiKey).stream().forEach(c->cartsAPI.put(c.getCartcod(), c));
     }
