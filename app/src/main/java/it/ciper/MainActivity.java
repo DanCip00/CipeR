@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapterCarrelli = new RecViewCarrelliAdapter();
         adapterCarrelli.setCarrelli(dataCenter);
-        adapterCarrelli.setContext(this);
+        adapterCarrelli.setContext(this,this);
         nessunCarrello = this.findViewById(R.id.nessunCarrello);
         recyclerViewCarrelli = this.findViewById(R.id.carrelli);
         recyclerViewCarrelli.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

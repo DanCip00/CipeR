@@ -8,5 +8,5 @@
     <string name="start_button">Start</string>
     <string name="mod_button">Modifica</string>
     <string name="static_text_oggetti">Oggetti</string>
-
+    <string name="crea_button">Crea</string>
 </resources>

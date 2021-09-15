@@ -2,6 +2,7 @@ package it.ciper.home.viewCarrelli;
 
 import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +23,12 @@ import it.ciper.json.DownloadImageTask;
 import kotlin._Assertions;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,15 +41,16 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     private List<CarrelloAPI> carrelliAPI;
     private Context context;
     private DataCenter dataCenter;
-
+    private Activity activity;
 
     public void setCarrelli(DataCenter dataCenter) {
         this.carrelliAPI = dataCenter.getAllCarrelliAPI();
         this.dataCenter = dataCenter;
         notifyDataSetChanged();
     }
-    public  void setContext(Context context){
+    public  void setContext(Context context, Activity activity){
         this.context= context;
+        this.activity =activity;
     }
 
 
@@ -70,7 +76,14 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
         int posizione = position-1;
         switch (holder.getItemViewType()){
             case 1:
-                //TODO set lissener credo
+                holder.parent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context,R.style.BottomSheetStyleDialogTheme);
+                        View bottomSheetView = LayoutInflater.from(context.getApplicationContext())
+                                .inflate(R.layout.new_cart_sheet,(LinearLayout)activity.findViewById())//TODO finire qua
+                    }
+                });
                 break;
             default:
                 holder.titoloCarrelloTextView.setText(carrelliAPI.get(posizione).getTitolo());
@@ -109,6 +122,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
         private Button modCartButton;
         private RecyclerView shopsListRec;
         private View itemView;
+        private ConstraintLayout parent;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -116,6 +130,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
             modCartButton = itemView.findViewById(R.id.modCart);
             shopsListRec = itemView.findViewById(R.id.shopsList);
             this.itemView = itemView;
+            parent = itemView.findViewById(R.id.parent);
         }
     }
 }
