@@ -3,6 +3,7 @@ package it.ciper.home.viewCarrelli;
 import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import it.ciper.R;
+import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 
@@ -33,7 +35,8 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     private List<CarrelloAPI> carrelliAPI;
     private Context context;
     private DataCenter dataCenter;
-
+    private boolean noElements = false;
+    private  ViewGroup parent;
     public void setCarrelli(DataCenter dataCenter) {
         this.carrelliAPI = dataCenter.getAllCarrelliAPI();
         this.dataCenter = dataCenter;
@@ -49,6 +52,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.carrello, parent, false);
         RecViewCarrelliAdapter.ViewHolder holder = new RecViewCarrelliAdapter.ViewHolder(view);
+        this.parent = parent;
         return holder;
     }
 
@@ -65,10 +69,15 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
         holder.shopsListRec.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
         holder.shopsListRec.addItemDecoration(itemDecor);
+
+        if (CarrelliInterfaceApi.getCartSellersInfoList(dataCenter.getApiKey(),carrelliAPI.get(position).getCartcod()).size()==0){
+            holder.shopsListRec.setBackground(context.getDrawable(R.drawable.shape_carello_add_first_prod_recycler));
+        }
     }
 
     @Override
     public int getItemCount() {
+
         return carrelliAPI.size();
     }
 
@@ -84,7 +93,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
             titoloCarrelloTextView = itemView.findViewById(R.id.titoloCarrello);
             modCartButton = itemView.findViewById(R.id.modCart);
             shopsListRec = itemView.findViewById(R.id.shopsList);
-            itemView = itemView;
+            this.itemView = itemView;
         }
     }
 }
