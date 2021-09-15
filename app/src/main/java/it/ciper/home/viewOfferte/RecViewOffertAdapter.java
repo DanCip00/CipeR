@@ -30,31 +30,47 @@ public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.offert_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        switch (viewType){
+            case 1:
+                View viewMoreInfo = LayoutInflater.from(parent.getContext()).inflate(R.layout.offert_more_info_item, parent, false);
+                ViewHolder holderMoreInfo = new ViewHolder(viewMoreInfo);
+                return holderMoreInfo;
+            default:
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.offert_item, parent, false);
+                ViewHolder holder = new ViewHolder(view);
+                return holder;
+        }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.productName.setText(topFiveOfferts.get(position).getSummaryname());
-        holder.oldPrice.setText(topFiveOfferts.get(position).getPrice().getPrice()+"€");
-        holder.newPrice.setText(topFiveOfferts.get(position).getPrice().getOffertprice()+"€");
+        if (holder.getItemViewType()==0) {
+            holder.productName.setText(topFiveOfferts.get(position).getSummaryname());
+            holder.oldPrice.setText(topFiveOfferts.get(position).getPrice().getPrice() + "€");
+            holder.newPrice.setText(topFiveOfferts.get(position).getPrice().getOffertprice() + "€");
 
 
-        new DownloadImageTask((ImageView) holder.productImage)
-                .execute(topFiveOfferts.get(position).getSrcimage());
+            new DownloadImageTask((ImageView) holder.productImage)
+                    .execute(topFiveOfferts.get(position).getSrcimage());
 
-        new DownloadImageTask((ImageView) holder.shopLogo)
-                .execute(dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
+            new DownloadImageTask((ImageView) holder.shopLogo)
+                    .execute(dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
 
-        System.out.println("PROD --->"+topFiveOfferts.get(position).getSrcimage());
-        System.out.println("LOGO --->"+dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
+            System.out.println("PROD --->" + topFiveOfferts.get(position).getSrcimage());
+            System.out.println("LOGO --->" + dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return topFiveOfferts.size();
+        return topFiveOfferts.size()+1;
+    }
+    @Override
+    public int getItemViewType(int position) {
+        if (position<topFiveOfferts.size())
+            return 0;
+        return 1;
     }
 
     public void setTopFiveOfferts(List<ProductAndPriceAPI> offerts, DataCenter dataCenter) {
@@ -76,6 +92,13 @@ public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdap
             newPrice = itemView.findViewById(R.id.newPrice);
             productImage = itemView.findViewById(R.id.productImage);
             shopLogo = itemView.findViewById(R.id.shopLogoOffert);
+        }
+    }
+
+    public class ViewHolderMoreInfo extends RecViewOffertAdapter.ViewHolder{
+
+        public ViewHolderMoreInfo(@NonNull View itemView) {
+            super(itemView);
         }
     }
 }

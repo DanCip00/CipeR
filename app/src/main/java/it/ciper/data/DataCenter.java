@@ -131,7 +131,7 @@ public class DataCenter {
     public List<CarrelloAPI> getAllCarrelliAPI(){
         upDateCartsInfo();
         if (cartsAPI.size()==0)
-            return null;
+            return new LinkedList<>();
         return cartsAPI.values().stream().collect(Collectors.toList());
     }
 
@@ -148,7 +148,10 @@ public class DataCenter {
 
     private void upDateCartsInfo(){
         cartsAPI.clear();
-        CarrelliInterfaceApi.getAllCarrelli(apiKey).stream().forEach(c->cartsAPI.put(c.getCartcod(), c));
+        List<CarrelloAPI> list =CarrelliInterfaceApi.getAllCarrelli(apiKey);
+        if (list==null || list.size()==0)
+            return;
+        list.stream().forEach(c->cartsAPI.put(c.getCartcod(), c));
     }
 
     public CarrelloAPI getCarrelloAPI(String cartCod){

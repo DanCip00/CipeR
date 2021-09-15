@@ -51,10 +51,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewCarrelli.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewCarrelli.setAdapter(adapterCarrelli);
 
-        if (dataCenter.getAllCarrelliAPI()!=null) {
+        if (dataCenter.getAllCarrelliAPI().size()!=0)
             nessunCarrello.setVisibility(View.GONE);
-        }else
-            recyclerViewCarrelli.setVisibility(View.GONE);
 
     }
 

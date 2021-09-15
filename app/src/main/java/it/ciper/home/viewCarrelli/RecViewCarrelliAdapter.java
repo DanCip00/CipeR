@@ -18,6 +18,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 
 import it.ciper.json.DownloadImageTask;
+import kotlin._Assertions;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -35,8 +36,8 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     private List<CarrelloAPI> carrelliAPI;
     private Context context;
     private DataCenter dataCenter;
-    private boolean noElements = false;
-    private  ViewGroup parent;
+
+
     public void setCarrelli(DataCenter dataCenter) {
         this.carrelliAPI = dataCenter.getAllCarrelliAPI();
         this.dataCenter = dataCenter;
@@ -50,35 +51,56 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.carrello, parent, false);
-        RecViewCarrelliAdapter.ViewHolder holder = new RecViewCarrelliAdapter.ViewHolder(view);
-        this.parent = parent;
-        return holder;
+        //TODO distinzione tra le due view 0->default 1->Creation line
+        switch (viewType){
+            case 1:
+                View viewAdd = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_carrello, parent, false);
+                RecViewCarrelliAdapter.ViewHolder holderAdd = new RecViewCarrelliAdapter.ViewHolder(viewAdd);
+                return holderAdd;
+            default:
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.carrello, parent, false);
+                RecViewCarrelliAdapter.ViewHolder holder = new RecViewCarrelliAdapter.ViewHolder(view);
+                return holder;
+        }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int posizione = position-1;
+        switch (holder.getItemViewType()){
+            case 1:
+                //TODO set lissener credo
+                break;
+            default:
+                holder.titoloCarrelloTextView.setText(carrelliAPI.get(posizione).getTitolo());
+                //TODO set lissener for button
+                //TODO implements avatar for each user
+                InnerRecViewAdapter adapter = new InnerRecViewAdapter();
+                adapter.setCartItems(dataCenter, carrelliAPI.get(posizione).getCartcod());
 
-        holder.titoloCarrelloTextView.setText(carrelliAPI.get(position).getTitolo());
-        //TODO set lissener for button
-        //TODO implements avatar for each user
-        InnerRecViewAdapter adapter = new InnerRecViewAdapter();
-        adapter.setCartItems(dataCenter, carrelliAPI.get(position).getCartcod());
+                holder.shopsListRec.setAdapter(adapter);
+                holder.shopsListRec.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+                DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
+                holder.shopsListRec.addItemDecoration(itemDecor);
 
-        holder.shopsListRec.setAdapter(adapter);
-        holder.shopsListRec.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
-        holder.shopsListRec.addItemDecoration(itemDecor);
-
-        if (CarrelliInterfaceApi.getCartSellersInfoList(dataCenter.getApiKey(),carrelliAPI.get(position).getCartcod()).size()==0){
-            holder.shopsListRec.setBackground(context.getDrawable(R.drawable.shape_carello_add_first_prod_recycler));
+                if (CarrelliInterfaceApi.getCartSellersInfoList(dataCenter.getApiKey(),carrelliAPI.get(posizione).getCartcod()).size()==0){
+                    holder.shopsListRec.setBackground(context.getDrawable(R.drawable.shape_carello_add_first_prod_recycler));
+                }
         }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position>0)
+            return 0;
+        return 1;
     }
 
     @Override
     public int getItemCount() {
-
-        return carrelliAPI.size();
+        return carrelliAPI.size()+1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
