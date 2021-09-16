@@ -57,8 +57,6 @@ public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdap
             new DownloadImageTask((ImageView) holder.shopLogo)
                     .execute(dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
 
-            System.out.println("PROD --->" + topFiveOfferts.get(position).getSrcimage());
-            System.out.println("LOGO --->" + dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
         }
     }
 

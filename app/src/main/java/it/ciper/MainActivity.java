@@ -3,6 +3,7 @@ package it.ciper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapterCarrelli = new RecViewCarrelliAdapter();
         adapterCarrelli.setCarrelli(dataCenter);
-        adapterCarrelli.setContext(this,this);
+        adapterCarrelli.setContext(this,this,this);
         nessunCarrello = this.findViewById(R.id.nessunCarrello);
         recyclerViewCarrelli = this.findViewById(R.id.carrelli);
         recyclerViewCarrelli.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+     public void updateInteface(){
+        adapter.setTopFiveOfferts(dataCenter.getTopFiveOfferts(),dataCenter);
+        adapterCarrelli.setCarrelli(dataCenter);
+    }
 
 
 
