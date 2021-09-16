@@ -1,16 +1,19 @@
 package it.ciper;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+
+import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.data.DataCenter;
-import it.ciper.home.viewCarrelli.RecViewCarrelliAdapter;
+import it.ciper.home.viewCarrelli.CreationThreadCarrelli;
+import it.ciper.home.viewOfferte.CreationThreadOfferte;
 import it.ciper.home.viewOfferte.RecViewOffertAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,48 +21,43 @@ public class MainActivity extends AppCompatActivity {
         final String apiKey = "b133a0c0e9bee3be20163d2ad31d6248db292aa6dcb1ee087a2aa50e0fc75ae2";
     DataCenter dataCenter = new DataCenter(apiKey);
 
-
-    // Offerte
-    RecViewOffertAdapter adapter;
-    RecyclerView recyclerViewOff;
+    //EXECUTOR
+    ExecutorService executor = SettingsApi.executor;
 
     //Carrelli
-    RecViewCarrelliAdapter adapterCarrelli;
-    RecyclerView recyclerViewCarrelli;
-    ImageView nessunCarrello;
+    CreationThreadCarrelli creationThreadCarrelli = new CreationThreadCarrelli();
+
+    // Offerte
+    CreationThreadOfferte creationThreadOfferte = new CreationThreadOfferte();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        //Gestione OFFERTE
         setContentView(R.layout.activity_main);
-        adapter = new RecViewOffertAdapter();
-        adapter.setTopFiveOfferts(dataCenter.getTopFiveOfferts(),dataCenter);
-        recyclerViewOff = this.findViewById(R.id.offerte);
-        recyclerViewOff.setAdapter(adapter);
-        recyclerViewOff.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
 
         //Gestione CARRELLI
+        creationThreadCarrelli.setParams(this,this,this,dataCenter);
+        Future<Boolean> exeCarrelli=executor.submit(creationThreadCarrelli);
 
-        adapterCarrelli = new RecViewCarrelliAdapter();
-        adapterCarrelli.setCarrelli(dataCenter);
-        adapterCarrelli.setContext(this,this,this);
-        nessunCarrello = this.findViewById(R.id.nessunCarrello);
-        recyclerViewCarrelli = this.findViewById(R.id.carrelli);
-        recyclerViewCarrelli.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerViewCarrelli.setAdapter(adapterCarrelli);
+        //Gestione OFFERTE
+        creationThreadOfferte.setParams(this,this,this,dataCenter);
+        Future<Boolean> exeOfferte=executor.submit(creationThreadOfferte);
 
-        if (dataCenter.getAllCarrelliAPI().size()!=0)
-            nessunCarrello.setVisibility(View.GONE);
-
+        try {
+            if(exeOfferte.get().booleanValue() && exeCarrelli.get().booleanValue())
+                System.out.println("Caricamento completato");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
      public void updateInteface(){
-        adapter.setTopFiveOfferts(dataCenter.getTopFiveOfferts(),dataCenter);
-        adapterCarrelli.setCarrelli(dataCenter);
+        creationThreadOfferte.updateInteface();
+        creationThreadCarrelli.updateInteface();
     }
 
 
