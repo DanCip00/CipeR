@@ -25,7 +25,10 @@ public class Carrello extends CarrelloAPI{
         upDateCartShopInfo();
     }
 
-
+    public void upDateTitolo(){
+        carrelloAPI = dataCenter.getCarrelloAPI(this.cartcod);
+        this.titolo = carrelloAPI.getTitolo();
+    }
 
     void upDateCartItems(){
         cartItems = new TreeMap<>();

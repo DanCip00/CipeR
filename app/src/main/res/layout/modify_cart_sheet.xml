@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheetContainer"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_background"
     android:orientation="vertical"
-    android:layout_height="wrap_content"
-    android:paddingBottom="16dp"
-    android:background="@drawable/bottom_sheet_background">
+    android:paddingBottom="16dp">
 
     <TextView
-        android:id="@+id/staticTextCreaUnCarrello"
+        android:id="@+id/staticTextModificaCarrello"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-15dp"
         android:fontFamily="@font/notosans_bold"
-        android:text="Nuovo carrello"
+        android:text="Modifica carrello"
         android:textAlignment="center"
 
         android:textSize="24dp"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/cartNameTextEdit"
+        android:id="@+id/modifyTitleTextEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -33,24 +33,47 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:maxLines="1"
-        android:hint="Titolo"
+        android:hint="Titolo da inserire con codice"
         android:inputType="textPersonName"
-        android:outlineSpotShadowColor="@color/ciperPurple"
         android:maxLength="20"
+        android:outlineSpotShadowColor="@color/ciperPurple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/staticTextCreaUnCarrello" />
+        app:layout_constraintTop_toBottomOf="@+id/staticTextModificaCarrello" />
 
     <Button
-        android:id="@+id/createCartButton"
+        android:id="@+id/renameButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/shape_button"
-        android:text="@string/crea_button"
+        android:text="@string/rename_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/medina"
+        app:layout_constraintTop_toBottomOf="@+id/modifyTitleTextEdit" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/medina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <Button
+        android:id="@+id/deleteButtonModifyCart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_button_delete"
+        android:text="@string/delete_button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/renameButton"
+        app:layout_constraintEnd_toStartOf="@+id/medina"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cartNameTextEdit" />
+        app:layout_constraintTop_toTopOf="@+id/renameButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

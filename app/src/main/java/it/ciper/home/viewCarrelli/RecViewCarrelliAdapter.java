@@ -18,7 +18,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 
 import it.ciper.listeners.carrello.CreateNewCart;
-
+import it.ciper.listeners.carrello.ModifyButtonCart;
 
 
 import androidx.annotation.NonNull;
@@ -76,8 +76,9 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
 
                 break;
             default:
-
-
+                ModifyButtonCart listener = new ModifyButtonCart();
+                listener.setContextAndActivity(main,activity,dataCenter,carrelliAPI.get(posizione));
+                holder.modCartButton.setOnClickListener(listener);
 
                 //TODO set lissener for button
                 //TODO implements avatar for each user

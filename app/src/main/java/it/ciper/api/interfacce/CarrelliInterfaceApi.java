@@ -91,6 +91,47 @@ public interface CarrelliInterfaceApi {
     }
 
 
+    /**
+     @return cartCod
+     */
+    static String renameCart(String apiKey, String cartCod, String titolo){
+
+        RenameCart renameCart = new RenameCart();
+        renameCart.setParams(apiKey,cartCod,titolo);
+        Future<String> ris = executor.submit(renameCart);
+        try {
+            return ris.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "false";
+    }
+    class RenameCart implements Callable<String>{
+        private String apiKey, titolo, cartCod;
+
+        void setParams(String apiKey, String cartCod,String titolo){
+            this.apiKey = apiKey;
+            this.cartCod = cartCod;
+            this.titolo = titolo;
+        }
+        @Override
+        public String call() throws Exception {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n    \"apiKey\" : \""+apiKey+"\",\n    \"cartCod\" : \""+cartCod+"\" ,\n    \"titolo\" : \""+titolo+"\"\n}");
+            Request request = new Request.Builder()
+                    .url(serverDomain+"/cart/rename")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+    }
+
     static List<CarrelloAPI> getAllCarrelli(String apiKey){
         String buf = null;
         GetAllCarrelli getAllCarrelli = new GetAllCarrelli();
@@ -137,10 +178,10 @@ public interface CarrelliInterfaceApi {
      * @param cart
      * @return bool
      */
-    static boolean delCarrello(CarrelloAPI cart){
+    static boolean delCarrello(String apiKey,CarrelloAPI cart){
         String buf = null;
         DelCarrello delCarrello = new DelCarrello();
-        delCarrello.setParams(cart.getUsernamecreator(), cart.getCartcod());
+        delCarrello.setParams(apiKey, cart.getCartcod());
         Future<String> ris = executor.submit(delCarrello);
         try {
             buf = ris.get();

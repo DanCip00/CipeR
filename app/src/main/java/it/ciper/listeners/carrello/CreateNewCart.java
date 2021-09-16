@@ -6,14 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.textfield.TextInputEditText;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
@@ -44,7 +41,7 @@ public class CreateNewCart implements View.OnClickListener {
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
         Button createButton = bottomSheetDialog.findViewById(R.id.createCartButton);
-        EditText text =(EditText) bottomSheetDialog.findViewById(R.id.titleEditText);
+        EditText text =(EditText) bottomSheetDialog.findViewById(R.id.cartNameTextEdit);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

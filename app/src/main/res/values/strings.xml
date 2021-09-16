@@ -9,4 +9,6 @@
     <string name="mod_button">Modifica</string>
     <string name="static_text_oggetti">Oggetti</string>
     <string name="crea_button">Crea</string>
+    <string name="rename_button">Rinomina</string>
+    <string name="delete_button">Elimina</string>
 </resources>

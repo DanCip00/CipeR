@@ -25,6 +25,10 @@ public class CarrelloAPI implements Comparable<CarrelloAPI>{
         return titolo;
     }
 
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
     @Override
     public String toString() {
         return "CarrelloAPI{" +

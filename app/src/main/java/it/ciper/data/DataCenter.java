@@ -138,6 +138,7 @@ public class DataCenter {
     public Carrello getCarrello(CarrelloAPI carrelloAPI){
         if (carts.containsKey(carrelloAPI.getCartcod()))
             return carts.get(carrelloAPI.getCartcod());
+        upDateCartsInfo();
         Carrello cart = new Carrello(this, carrelloAPI);
         carts.put(cart.getCartcod(), cart);
         return cart;
@@ -163,13 +164,30 @@ public class DataCenter {
         return null;
     }
 
+    public boolean renameCart(String cartCod, String titolo){
+        CarrelloAPI cart;
+        if ((cart=getCarrelloAPI(cartCod)).getTitolo().compareTo(titolo)==0)
+            return true ;
+        cart.setTitolo(titolo);
+        if (CarrelliInterfaceApi.renameCart(apiKey, cartCod, titolo).toString().compareTo("false")==0)
+            return false;
+        if (carts.containsKey(cartCod))
+            carts.get(cartCod).upDateTitolo();
+        return true;
+    }
+
     public boolean remCarrello(String cartCod){
         boolean ris= CarrelliInterfaceApi.delCarrello(apiKey, cartCod);
+
+        if (carts.containsKey(cartCod))
+            carts.remove(cartCod);
         upDateCartsInfo();
         return ris;
     }
     public boolean remCarrello(CarrelloAPI cart){
-        boolean ris= CarrelliInterfaceApi.delCarrello(cart);
+        boolean ris= CarrelliInterfaceApi.delCarrello(apiKey,cart);
+        if (carts.containsKey(cart.getCartcod()))
+            carts.remove(cart.getCartcod());
         upDateCartsInfo();
         return ris;
     }
