@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="it.ciper">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="it.ciper"
+    tools:ignore="CoarseFineLocation">
 
     <application
         android:allowBackup="true"
@@ -21,4 +23,7 @@
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:ignore="CoarseFineLocation" />
 </manifest>

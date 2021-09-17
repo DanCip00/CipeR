@@ -40,4 +40,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
     implementation 'com.mikhaellopez:circularimageview:4.3.0'
+
+    //position
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 }

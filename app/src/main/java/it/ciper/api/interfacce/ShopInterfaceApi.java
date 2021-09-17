@@ -55,7 +55,7 @@ public interface ShopInterfaceApi {
         ShopAPI[] shops = JsonManager.parseJsonClass(buf,ShopAPI[].class);
         if (shops.length==0)
             return null;
-        return Arrays.stream(shops).peek(p->System.out.println("!!!!!!!"+p)).collect(Collectors.toList());
+        return Arrays.stream(shops).collect(Collectors.toList());
     }
     class GetAllShop implements Callable<String> {
         private String apiKey;

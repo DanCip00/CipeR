@@ -53,5 +53,9 @@ public class CreationThreadCarrelli implements Callable<Boolean> {
 
     public void updateInteface(){
         adapterCarrelli.setCarrelli(dataCenter);
+        if (dataCenter.getAllCarrelliAPI().size()!=0)
+            nessunCarrello.setVisibility(View.GONE);
+        else
+            nessunCarrello.setVisibility(View.VISIBLE);
     }
 }

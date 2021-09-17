@@ -1,10 +1,16 @@
 package it.ciper;
 
+import android.location.Address;
+import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -15,10 +21,11 @@ import it.ciper.data.DataCenter;
 import it.ciper.home.viewCarrelli.CreationThreadCarrelli;
 import it.ciper.home.viewOfferte.CreationThreadOfferte;
 import it.ciper.home.viewOfferte.RecViewOffertAdapter;
+import it.ciper.position.PositionHandler;
 
 public class MainActivity extends AppCompatActivity {
     //API
-        final String apiKey = "b133a0c0e9bee3be20163d2ad31d6248db292aa6dcb1ee087a2aa50e0fc75ae2";
+        final String apiKey = SettingsApi.apiKey;
     DataCenter dataCenter = new DataCenter(apiKey);
 
     //EXECUTOR
@@ -30,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     // Offerte
     CreationThreadOfferte creationThreadOfferte = new CreationThreadOfferte();
 
-
+    //Position
+    PositionHandler positionHandler = new PositionHandler();
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +54,27 @@ public class MainActivity extends AppCompatActivity {
         creationThreadOfferte.setParams(this,this,this,dataCenter);
         Future<Boolean> exeOfferte=executor.submit(creationThreadOfferte);
 
+        //Posizione
+            //Permessi
+        positionHandler.setParams(this,this,this,dataCenter);
+        Future<Boolean> locationFuture =executor.submit(positionHandler);
+
         try {
-            if(exeOfferte.get().booleanValue() && exeCarrelli.get().booleanValue())
+            if(exeOfferte.get().booleanValue() && exeCarrelli.get().booleanValue() && locationFuture.get().booleanValue())
                 System.out.println("Caricamento completato");
         } catch (ExecutionException e) {
+            Toast.makeText(this,"E' necessaria una connessione internet",Toast.LENGTH_LONG).show();
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 
      public void updateInteface(){
         creationThreadOfferte.updateInteface();
         creationThreadCarrelli.updateInteface();
     }
-
-
 
 
 }

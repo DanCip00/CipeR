@@ -52,8 +52,8 @@ public class CreateNewCart implements View.OnClickListener {
                     return;
                 }
 
-                CarrelliInterfaceApi.addCart(dataCenter.getApiKey(),text.getText().toString());
                 bottomSheetDialog.hide();
+                CarrelliInterfaceApi.addCart(dataCenter.getApiKey(),text.getText().toString());
                 main.updateInteface();
             }
         });

@@ -1,5 +1,7 @@
 package it.ciper.data;
 
+import android.location.Location;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +35,9 @@ public class DataCenter {
     TreeMap<String, ProductAPI> productsAPI = new TreeMap<>();
 
     LinkedList<ProductAndPriceAPI> topOfferts = new LinkedList<>();
+
+    protected Location location;
+
     private int numOfferts = 0;
     private String apiKey=null;
 
@@ -54,10 +59,15 @@ public class DataCenter {
         return pr;
     }
 
+    public Location getLocation() {
+        return location;
+    }
 
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-
-                        //Price and ProductAndPriceAPI
+    //Price and ProductAndPriceAPI
     public List<PriceAPI> getAllPriceAPI (ProductAPI productAPI){
         List<PriceAPI> list = ProductInterfaceApi.getAllPrices(apiKey,productAPI.getProductcod());
         list.forEach(p->addPriceAPI(p));
