@@ -1,5 +1,6 @@
 package it.ciper.home.viewOfferte;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -59,7 +60,7 @@ public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (holder.getItemViewType()==0) {
             holder.productName.setText(topFiveOfferts.get(position).getSummaryname());
             holder.oldPrice.setText(topFiveOfferts.get(position).getPrice().getPrice() + "€");
@@ -72,10 +73,19 @@ public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdap
             new DownloadImageTask((ImageView) holder.shopLogo)
                     .execute(dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
 
-            CreationOnCllickProductSheet creationOnCllickProductSheet = new CreationOnCllickProductSheet();
-            creationOnCllickProductSheet.setParams(activity,context,mainActivity,dataCenter,topFiveOfferts.get(position).getProduct());
-            holder.offertItem.setOnClickListener(creationOnCllickProductSheet);
+            holder.offertItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    displayProduct(position);
+                }
+            });
         }
+    }
+
+    private void displayProduct(int position){
+        CreationOnCllickProductSheet creationOnCllickProductSheet = new CreationOnCllickProductSheet();
+        creationOnCllickProductSheet.setParams(activity,context,mainActivity,dataCenter,topFiveOfferts.get(position).getProduct());
+        creationOnCllickProductSheet.display();
     }
 
     @Override
