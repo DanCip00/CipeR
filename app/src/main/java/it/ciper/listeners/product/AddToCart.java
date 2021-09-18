@@ -50,7 +50,6 @@ public class AddToCart implements View.OnClickListener {
 
         dialog.setContentView(R.layout.popup_add_product);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
 
         NumberPicker numberPicker = dialog.findViewById(R.id.numberPikerAddToCart);
         Button start = dialog.findViewById(R.id.addProductPopupButton);
@@ -70,5 +69,6 @@ public class AddToCart implements View.OnClickListener {
                 dialog.hide();
             }
         });
+        dialog.show();
     }
 }

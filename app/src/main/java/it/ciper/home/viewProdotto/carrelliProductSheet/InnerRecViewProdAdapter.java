@@ -72,8 +72,8 @@ public class InnerRecViewProdAdapter extends RecyclerView.Adapter<InnerRecViewPr
 
         ProductAndPriceAPI pap = items.get(position);
         if (pap.isOffert()){
-            holder.oldPrice.setText(pap.getPrice().getPrice().toString());
-            holder.newPrice.setText(pap.getPrice().getOffertprice().toString());
+            holder.oldPrice.setText(pap.getPrice().getPrice().toString()+"€");
+            holder.newPrice.setText(pap.getPrice().getOffertprice().toString()+"€");
             holder.oldPrice.setVisibility(View.VISIBLE);
         }else
             holder.newPrice.setText(pap.getPrice().getPrice().toString());
