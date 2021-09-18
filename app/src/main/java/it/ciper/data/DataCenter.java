@@ -80,6 +80,8 @@ public class DataCenter {
         if (prices.containsKey(productCod) && (map = prices.get(productCod)).containsKey(sellerCod))
             return map.get(sellerCod);
         PriceAPI price =ProductInterfaceApi.getPrice(apiKey, productCod, sellerCod.toString());
+        if (price==null)
+            return null;
         prices.computeIfAbsent(productCod,(s)->new TreeMap<>());
         prices.get(productCod).put(sellerCod, price);
         return price;
@@ -96,7 +98,10 @@ public class DataCenter {
         Map<Integer, ProductAndPriceAPI> map;
         if( prodAndPriceCache.containsKey(productCod) && (map=prodAndPriceCache.get(productCod)).containsKey(sellerCod))
             return map.get(sellerCod);
-        ProductAndPriceAPI pap = new ProductAndPriceAPI(getProductAPI(productCod),getPriceAPI(productCod, sellerCod));
+        PriceAPI price = getPriceAPI(productCod, sellerCod);
+        if (price==null)
+            return null;
+        ProductAndPriceAPI pap = new ProductAndPriceAPI(getProductAPI(productCod),price);
         prodAndPriceCache.computeIfAbsent(productCod,(s)->new TreeMap<Integer, ProductAndPriceAPI>());
         prodAndPriceCache.get(productCod).put(sellerCod,pap);
         return pap;
@@ -135,6 +140,16 @@ public class DataCenter {
         shopsAPI.clear();
         ShopInterfaceApi.getAllShop(apiKey).stream().forEach(s->shopsAPI.put(s.getSellercod(),s));
         return shopsAPI.get(sellerCod);
+    }
+
+
+    public List<ShopAPI> getCartSellers(CarrelloAPI cart){
+        List<ShopAPI> shops = CarrelliInterfaceApi.getCartSellers(apiKey, cart);
+        shops.forEach(s->{
+            if (!shopsAPI.containsKey(s.getSellercod()))
+                shopsAPI.put(s.getSellercod(),s);
+        });
+        return shops;
     }
 
                         //Carrello

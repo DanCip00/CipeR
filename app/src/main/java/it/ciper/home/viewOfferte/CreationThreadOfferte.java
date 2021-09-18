@@ -2,6 +2,7 @@ package it.ciper.home.viewOfferte;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Looper;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,10 +33,10 @@ public class CreationThreadOfferte implements Callable<Boolean> {
 
     @Override
     public Boolean call() {
-
         //Gestione OFFERTE
         adapter = new RecViewOffertAdapter();
         adapter.setTopFiveOfferts(dataCenter.getTopFiveOfferts(),dataCenter);
+        adapter.setParams(activity,context,mainActivity,dataCenter);
         recyclerViewOff = activity.findViewById(R.id.offerte);
         recyclerViewOff.setAdapter(adapter);
         recyclerViewOff.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));

@@ -10,13 +10,15 @@
         android:id="@+id/topBarCarrello"
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/titoloCarrelloProductSheet"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:contentDescription="@string/titolo_carrello"
             android:fontFamily="@font/notosans_bold"
             android:text="NOME DEL CARRELLO"
@@ -24,25 +26,10 @@
             android:textColor="@color/ciperDarkPurpleSimil"
             android:textSize="14sp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="@+id/modCart"
-            app:layout_constraintEnd_toStartOf="@+id/modCart"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/modCart" />
-
-        <Button
-            android:id="@+id/modCart"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/shape_button"
-            android:backgroundTint="@color/ciperDarkPurpleSimil"
-            android:text="@string/mod_button"
-            android:textSize="8sp"
-            app:icon="@drawable/ic_shopping_pencil"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

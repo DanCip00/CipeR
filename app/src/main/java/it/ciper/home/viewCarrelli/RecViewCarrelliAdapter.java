@@ -5,7 +5,6 @@ import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,7 +23,6 @@ import it.ciper.listeners.carrello.ModifyButtonCart;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,22 +37,23 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     private Activity activity;
     private MainActivity main;
 
-    public void setCarrelli(DataCenter dataCenter) {
-        this.carrelliAPI = dataCenter.getAllCarrelliAPI();
-        this.dataCenter = dataCenter;
-        notifyDataSetChanged();
-    }
     public  void setContext(Context context, Activity activity, MainActivity main){
         this.context= context;
         this.activity =activity;
         this.main = main;
     }
 
+    public void setCarrelli(DataCenter dataCenter) {
+        this.carrelliAPI = dataCenter.getAllCarrelliAPI();
+        this.dataCenter = dataCenter;
+        notifyDataSetChanged();
+    }
+
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //TODO distinzione tra le due view 0->default 1->Creation line
         switch (viewType){
             case 1:
                 View viewAdd = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_carrello, parent, false);
@@ -80,7 +79,6 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
                 listener.setContextAndActivity(main,activity,dataCenter,carrelliAPI.get(posizione));
                 holder.modCartButton.setOnClickListener(listener);
 
-                //TODO set lissener for button
                 //TODO implements avatar for each user
                 InnerRecViewAdapter adapter = new InnerRecViewAdapter();
                 adapter.setCartItems(dataCenter, carrelliAPI.get(posizione).getCartcod());
@@ -122,9 +120,9 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
             super(itemView);
 
             topBarCarrello = itemView.findViewById(R.id.topBarCarrello);
-            titoloCarrelloTextView = itemView.findViewById(R.id.titoloCarrello);
+            titoloCarrelloTextView = itemView.findViewById(R.id.titoloCarrelloProductSheet);
             modCartButton = itemView.findViewById(R.id.modCart);
-            shopsListRec = itemView.findViewById(R.id.shopsList);
+            shopsListRec = itemView.findViewById(R.id.shopsListProductSheet);
             this.itemView = itemView;
             this.parent = itemView.findViewById(R.id.parent);
         }

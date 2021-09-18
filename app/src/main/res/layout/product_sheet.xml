@@ -13,11 +13,13 @@
         android:id="@+id/productImageProductSheet"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="-40dp"
         android:contentDescription="@string/product_image"
         android:scaleX="0.8"
         android:scaleY="0.8"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineproductSheet"
+        app:layout_constraintBottom_toTopOf="@+id/staticTextDescrizione"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/centerImageProductSheet"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_foreground" />
@@ -30,8 +32,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
 
-        android:autoSizeMaxTextSize="16dp"
-        android:autoSizeMinTextSize="20dp"
+        android:autoSizeMaxTextSize="20dp"
+        android:autoSizeMinTextSize="16dp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/notosans_black"
@@ -41,7 +43,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/medianaProductSheet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/backImageProductSheet" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/medianaProductSheet"
@@ -68,13 +70,13 @@
         android:id="@+id/produttoreTextProductSheet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/productNameProductSheet"
         app:layout_constraintTop_toBottomOf="@+id/productNameProductSheet" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/backImageProductSheet"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -88,29 +90,49 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="-30dp"
+        android:layout_marginTop="-8dp"
         app:layout_constraintEnd_toStartOf="@+id/medianaProductSheet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineproductSheet"
+        app:layout_constraintTop_toBottomOf="@+id/produttoreTextProductSheet"
         app:srcCompat="@drawable/descrizione" />
 
     <ScrollView
         android:id="@+id/descriptionScrollView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="-17dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/staticTextDescrizione"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/staticTextDescrizione">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/staticTextItuoiCarrelli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-16dp"
+                android:fontFamily="@font/opensans_bold"
+                android:text="@string/static_text_i_tuoi_carrelli"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/staticTextPrezzi" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/innercenterImageProductSheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.50" />
 
             <TextView
                 android:id="@+id/descriptionText"
@@ -121,32 +143,32 @@
                 android:textAlignment="gravity"
                 android:textSize="17dp"
 
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/staticTextPrezzi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-45dp"
+                android:layout_marginEnd="50dp"
+                app:layout_constraintEnd_toStartOf="@+id/innercenterImageProductSheet"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+                app:srcCompat="@drawable/prezzi" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/carrelliProdutSheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/staticTextItuoiCarrelli" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53757864" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-50dp"
-        android:layout_marginTop="-10dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintEnd_toStartOf="@+id/medianaProductSheet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
-        app:srcCompat="@drawable/prezzi" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

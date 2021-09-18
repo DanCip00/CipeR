@@ -3,7 +3,6 @@ package it.ciper.home.viewCarrelli;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import java.util.List;
 import it.ciper.R;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
-import it.ciper.data.dataClasses.carrello.CartItem;
 import it.ciper.data.dataClasses.shop.ShopCartInfoAPI;
 import it.ciper.json.DownloadImageTask;
 
@@ -79,8 +77,8 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            shopIconView = itemView.findViewById(R.id.shopIcon);
-            shopName = itemView.findViewById(R.id.shopName);
+            shopIconView = itemView.findViewById(R.id.shopIconProductSheet);
+            shopName = itemView.findViewById(R.id.shopNameProductSheet);
             numeroOggettiTextView = itemView.findViewById(R.id.numeroOggetti);
             this.itemView = itemView;
         }
