@@ -20,6 +20,7 @@ import it.ciper.R;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.home.viewProdotto.carrelliProductSheet.RecViewProductAdapter;
+import it.ciper.home.viewProdotto.doveConviene.RecViewDoveConviene;
 import it.ciper.json.DownloadImageTask;
 
 public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnClickListener {
@@ -32,6 +33,8 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
     protected RecViewProductAdapter carrelliProductAdapter;
     protected TextView description;
 
+    protected RecyclerView doveConviene;
+    protected RecViewDoveConviene recViewDoveConvieneAdapter;
 
     protected ProductAPI productAPI;
 
@@ -47,70 +50,13 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
 
     @Override
     public Boolean call() throws Exception {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyleDialogTheme);
-        View bottomSheetView = LayoutInflater.from(context)
-                .inflate(R.layout.product_sheet,(ConstraintLayout)activity.findViewById(R.id.bottomSheetContainer));
-        bottomSheetDialog.setContentView(bottomSheetView);
-
-        bottomSheetDialog.findViewById(R.id.backImageProductSheet).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetDialog.hide();
-                mainActivity.updateInteface();
-            }
-        });
-
-        new DownloadImageTask((ImageView) bottomSheetDialog.findViewById(R.id.productImageProductSheet))
-                .execute(productAPI.getSrcimage());
-        description = bottomSheetDialog.findViewById(R.id.descriptionText);
-        description.setText(productAPI.getDescription());
-
-        ((TextView)bottomSheetDialog.findViewById(R.id.productNameProductSheet)).setText(productAPI.getName());
-        ((TextView)bottomSheetDialog.findViewById(R.id.produttoreTextProductSheet)).setText(productAPI.getProducer());
-
-        carrelliProdotto = bottomSheetDialog.findViewById(R.id.carrelliProdutSheet);
-        carrelliProductAdapter = new RecViewProductAdapter();
-        carrelliProductAdapter.setDataCenter(dataCenter,productAPI);
-        carrelliProductAdapter.setContext(context,activity,mainActivity);
-        carrelliProdotto.setAdapter(carrelliProductAdapter);
-        carrelliProdotto.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        bottomSheetDialog.show();
+        display();
         return true;
     }
 
     @Override
     public void onClick(View view) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyleDialogTheme);
-        View bottomSheetView = LayoutInflater.from(context)
-                .inflate(R.layout.product_sheet,(ConstraintLayout)activity.findViewById(R.id.bottomSheetContainer));
-        bottomSheetDialog.setContentView(bottomSheetView);
-
-
-        bottomSheetDialog.getWindow().setLayout(-1,-1);
-        bottomSheetDialog.show();
-
-        bottomSheetDialog.findViewById(R.id.backImageProductSheet).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetDialog.hide();
-                mainActivity.updateInteface();
-            }
-        });
-
-        new DownloadImageTask((ImageView) bottomSheetDialog.findViewById(R.id.productImageProductSheet))
-                .execute(productAPI.getSrcimage());
-        description = bottomSheetDialog.findViewById(R.id.descriptionText);
-        description.setText(productAPI.getDescription());
-
-        ((TextView)bottomSheetDialog.findViewById(R.id.productNameProductSheet)).setText(productAPI.getName());
-        ((TextView)bottomSheetDialog.findViewById(R.id.produttoreTextProductSheet)).setText(productAPI.getProducer());
-
-        carrelliProdotto = bottomSheetDialog.findViewById(R.id.carrelliProdutSheet);
-        carrelliProductAdapter = new RecViewProductAdapter();
-        carrelliProductAdapter.setDataCenter(dataCenter,productAPI);
-        carrelliProductAdapter.setContext(context,activity,mainActivity);
-        carrelliProdotto.setAdapter(carrelliProductAdapter);
-        carrelliProdotto.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        display();
 
     }
 
@@ -142,6 +88,13 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         carrelliProductAdapter.setContext(context,activity,mainActivity);
         carrelliProdotto.setAdapter(carrelliProductAdapter);
         carrelliProdotto.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+
+
+        doveConviene = bottomSheetDialog.findViewById(R.id.doveConvieneRecView);
+        recViewDoveConvieneAdapter = new RecViewDoveConviene();
+        recViewDoveConvieneAdapter.setContext(context,activity,mainActivity,dataCenter,productAPI);
+        doveConviene.setAdapter(recViewDoveConvieneAdapter);
+        doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         bottomSheetDialog.show();
     }
 }

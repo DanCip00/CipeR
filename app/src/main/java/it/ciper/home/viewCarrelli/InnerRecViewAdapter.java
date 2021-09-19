@@ -77,8 +77,8 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            shopIconView = itemView.findViewById(R.id.shopIconProductSheet);
-            shopName = itemView.findViewById(R.id.shopNameProductSheet);
+            shopIconView = itemView.findViewById(R.id.shopIconDoveConviene);
+            shopName = itemView.findViewById(R.id.shopNameDoveConviene);
             numeroOggettiTextView = itemView.findViewById(R.id.numeroOggetti);
             this.itemView = itemView;
         }

@@ -76,7 +76,7 @@ public class InnerRecViewProdAdapter extends RecyclerView.Adapter<InnerRecViewPr
             holder.newPrice.setText(pap.getPrice().getOffertprice().toString()+"€");
             holder.oldPrice.setVisibility(View.VISIBLE);
         }else
-            holder.newPrice.setText(pap.getPrice().getPrice().toString());
+            holder.newPrice.setText(pap.getPrice().getPrice().toString()+"€");
 
         ShopAPI shop = shops.stream().filter(s->s.getSellercod()==pap.getPrice().getSellercod()).findAny().get();
 
@@ -107,11 +107,11 @@ public class InnerRecViewProdAdapter extends RecyclerView.Adapter<InnerRecViewPr
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            addButton = itemView.findViewById(R.id.addToCartProdictSheet);
-            oldPrice = itemView.findViewById(R.id.oldPriceProductSheet);
-            newPrice = itemView.findViewById(R.id.newPriceProductSheet);
-            shopName = itemView.findViewById(R.id.shopNameProductSheet);
-            shopIcon = itemView.findViewById(R.id.shopIconProductSheet);
+            addButton = itemView.findViewById(R.id.addToCartDoveConviene);
+            oldPrice = itemView.findViewById(R.id.oldPriceDoveConviene);
+            newPrice = itemView.findViewById(R.id.newPriceDoveConviene);
+            shopName = itemView.findViewById(R.id.shopNameDoveConviene);
+            shopIcon = itemView.findViewById(R.id.shopIconDoveConviene);
 
         }
     }

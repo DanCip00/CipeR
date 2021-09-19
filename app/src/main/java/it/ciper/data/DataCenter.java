@@ -1,6 +1,7 @@
 package it.ciper.data;
 
 import android.location.Location;
+import android.location.LocationManager;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -35,6 +36,8 @@ public class DataCenter {
     TreeMap<String, ProductAPI> productsAPI = new TreeMap<>();
 
     LinkedList<ProductAndPriceAPI> topOfferts = new LinkedList<>();
+
+    protected TreeMap<Integer,Float> distances = new TreeMap<>();
 
     protected Location location;
 
@@ -111,6 +114,14 @@ public class DataCenter {
             return;
         prodAndPriceCache.computeIfAbsent(pap.getProductcod(),(s)->new TreeMap<Integer, ProductAndPriceAPI>());
         prodAndPriceCache.get(pap.getProductcod()).put(pap.getPrice().getSellercod(),pap);
+    }
+
+    public List<ProductAndPriceAPI> getAllProductAndPriceAPI(ProductAPI productAPI){
+        List<PriceAPI> priceAPIList = getAllPriceAPI(productAPI);
+
+        if (priceAPIList==null || priceAPIList.size()==0)
+            return null;
+        return  priceAPIList.stream().map(p->getProductAndPriceAPI(productAPI.getProductcod(),p.getSellercod())).collect(Collectors.toList());
     }
                         //Offert
     /**
@@ -215,5 +226,22 @@ public class DataCenter {
             carts.remove(cart.getCartcod());
         upDateCartsInfo();
         return ris;
+    }
+                            //distances
+    public float getDistace(ShopAPI shop){
+
+        if (distances.containsKey(shop.getSellercod()))
+            return distances.get(shop.getSellercod());
+        if (location ==null )
+            return 0;
+
+        Location destination = new Location(LocationManager.GPS_PROVIDER);
+        destination.setLatitude(shop.getLat());
+        destination.setLongitude(shop.getLng());
+        float metri = location.distanceTo(destination);
+        if (metri==0)
+            return -1;
+        distances.put(shop.getSellercod(),metri);
+        return metri;
     }
 }

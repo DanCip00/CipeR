@@ -12,14 +12,13 @@
         android:id="@+id/shopNameDoveConviene"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:contentDescription="@string/titolo_carrello"
         android:fontFamily="@font/opensans_bolditalic"
         android:text="nome del negozio"
         android:textColor="@color/ciperDarkPurpleSimil"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/oldPriceDoveConviene"
+        app:layout_constraintEnd_toStartOf="@+id/distanzaDoveConviene"
         app:layout_constraintStart_toEndOf="@+id/shopIconDoveConviene"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.483" />
@@ -60,10 +59,10 @@
         android:text="2,45€"
         android:textAlignment="center"
         android:textColor="@color/ciperRed"
-        android:textSize="10sp"
+        android:textSize="11sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/newPriceDoveConviene"
-        app:layout_constraintEnd_toStartOf="@+id/startPrice" />
+        app:layout_constraintEnd_toStartOf="@+id/startPrice2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -84,15 +83,45 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addToCartDoveConviene"
-        app:layout_constraintStart_toStartOf="@+id/startPrice"
+        app:layout_constraintStart_toStartOf="@+id/startPrice2"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/distanzaDoveConviene"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_bold"
+        android:text="12"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline43"
+        app:layout_constraintStart_toStartOf="@+id/guideline43"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/staticTextKm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_bold"
+        android:text="Km"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/distanzaDoveConviene"
+        app:layout_constraintStart_toStartOf="@+id/distanzaDoveConviene"
+        app:layout_constraintTop_toBottomOf="@+id/distanzaDoveConviene" />
+
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/startPrice"
+        android:id="@+id/startPrice2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.67" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.52" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

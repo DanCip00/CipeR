@@ -12,11 +12,11 @@
         android:id="@+id/productImageProductSheet"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="-12dp"
+        android:layout_marginBottom="-20dp"
         android:contentDescription="@string/product_image"
         android:scaleX="0.8"
         android:scaleY="0.8"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="@+id/produttoreTextProductSheet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/centerImageProductSheet"
@@ -85,22 +85,13 @@
         app:srcCompat="@drawable/ic_back_row" />
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="700dp" />
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/produttoreTextProductSheet">
+        app:layout_constraintTop_toBottomOf="@+id/productImageProductSheet">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -109,17 +100,6 @@
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp">
 
-
-            <TextView
-                android:id="@+id/staticTextDoveConviene"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/static_text_dove_conviene"
-                android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/carrelliProdutSheet" />
 
             <ImageView
                 android:id="@+id/staticTextDescrizione"
@@ -177,16 +157,40 @@
                 app:layout_constraintTop_toBottomOf="@+id/descriptionText"
                 app:srcCompat="@drawable/prezzi" />
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/carrelliProdutSheet"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                app:layout_constraintBottom_toTopOf="@+id/staticTextDoveConviene"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/staticTextItuoiCarrelli">
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <TextView
+                android:id="@+id/staticTextDoveConviene"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_bold"
+                android:text="@string/static_text_dove_conviene"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/carrelliProdutSheet" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/doveConvieneRecView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="250dp"
+                android:background="@drawable/shape_dove_conviene_recycler"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/staticTextDoveConviene" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

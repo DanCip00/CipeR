@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/shopNameProductSheet"
+        android:id="@+id/shopNameDoveConviene"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/shopIconProductSheet"
+        android:id="@+id/shopIconDoveConviene"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginEnd="16dp"
@@ -60,7 +60,7 @@
         android:textSize="13sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/shopIconProductSheet"
+        app:layout_constraintEnd_toStartOf="@+id/shopIconDoveConviene"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.71000004" />
 
