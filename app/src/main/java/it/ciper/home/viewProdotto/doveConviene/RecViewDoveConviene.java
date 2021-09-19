@@ -37,6 +37,7 @@ public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConvien
     private MainActivity main;
     protected List<ProductAndPriceAPI> productAndPriceAPIList;
     protected ProductAPI productAPI;
+    protected Boolean empty = false;
 
     public  void setContext(Context context, Activity activity, MainActivity main, DataCenter dataCenter, ProductAPI productAPI){
         this.context= context;
@@ -56,9 +57,14 @@ public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConvien
                         return false;
                     })
                     .sorted(Comparator.comparing(pap->pap.isOffert()?pap.getPrice().getOffertprice():pap.getPrice().getPrice())).collect(Collectors.toList());
+        if (productAndPriceAPIList.size()==0)
+            empty =true;
         notifyDataSetChanged();
     }
 
+    public Boolean getEmpty() {
+        return empty;
+    }
 
     @NonNull
     @Override
@@ -76,7 +82,7 @@ public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConvien
             holder.newPrice.setText(pap.getPrice().getOffertprice().toString()+"€");
             holder.oldPrice.setVisibility(View.VISIBLE);
         }else {
-            holder.newPrice.setText(pap.getPrice().getPrice().toString());
+            holder.newPrice.setText(pap.getPrice().getPrice().toString()+"€");
             holder.oldPrice.setVisibility(View.INVISIBLE);
         }
 

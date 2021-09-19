@@ -93,8 +93,12 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         doveConviene = bottomSheetDialog.findViewById(R.id.doveConvieneRecView);
         recViewDoveConvieneAdapter = new RecViewDoveConviene();
         recViewDoveConvieneAdapter.setContext(context,activity,mainActivity,dataCenter,productAPI);
-        doveConviene.setAdapter(recViewDoveConvieneAdapter);
-        doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        if (recViewDoveConvieneAdapter.getEmpty())
+            doveConviene.setVisibility(View.GONE);
+        else {
+            doveConviene.setAdapter(recViewDoveConvieneAdapter);
+            doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        }
         bottomSheetDialog.show();
     }
 }
