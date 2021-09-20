@@ -1,5 +1,7 @@
 package it.ciper.home.viewSearch;
 
+import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,7 +58,7 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         disp();
     }
 
-    private void disp(){
+    public void disp(){
         Dialog dialog = new Dialog(context);
 
         dialog.setContentView(R.layout.popup_search_prod);
@@ -68,6 +71,8 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         recViewSearchAdapter.setProducts(null);
         recyclerView.setAdapter(recViewSearchAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
+        recyclerView.addItemDecoration(itemDecor);
         searchBar.setCursorVisible(true);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -77,19 +82,19 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString()==null||charSequence.toString().compareTo("")==0){
-                    recViewSearchAdapter.setProducts(null);
-                    return;
-                }
-                products = dataCenter.searchProduct(charSequence.toString());
-                recViewSearchAdapter.setProducts(products);
-                if (products!=null && products.size()!=0)
-                    products.forEach(p->System.out.println(p));
+
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if (editable.toString()==null||editable.toString().compareTo("")==0){
+                    recViewSearchAdapter.setProducts(null);
+                    System.gc();
+                    return;
+                }
+                products = dataCenter.searchProduct(editable.toString());
+                recViewSearchAdapter.setProducts(products);
             }
         });
 
@@ -97,6 +102,7 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
             @Override
             public void onClick(View view) {
                 dialog.hide();
+                freeMemory();
             }
         });
         dialog.getWindow().setLayout(-1,-1);
@@ -104,5 +110,16 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         if(searchBar.requestFocus()) {
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+    }
+
+
+    private void freeMemory(){
+        context = null;
+        activity = null;
+        mainActivity = null;
+        recyclerView =null;
+        recViewSearchAdapter =null;
+        products =null;
+        System.gc();
     }
 }

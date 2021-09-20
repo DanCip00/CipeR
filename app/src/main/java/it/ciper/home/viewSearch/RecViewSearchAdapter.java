@@ -31,7 +31,7 @@ public class RecViewSearchAdapter extends RecyclerView.Adapter<RecViewSearchAdap
     protected Context context;
     protected MainActivity mainActivity;
     protected DataCenter dataCenter;
-    protected CreationOnCllickProductSheet creationOnCllickProductSheet;
+    protected CreationOnCllickProductSheet creationOnCllickProductSheet= new CreationOnCllickProductSheet();
 
     protected List<ProductAPI> products;
 
@@ -40,8 +40,6 @@ public class RecViewSearchAdapter extends RecyclerView.Adapter<RecViewSearchAdap
         this.context = context;
         this.mainActivity = mainActivity;
         this.dataCenter = dataCenter;
-        creationOnCllickProductSheet = new CreationOnCllickProductSheet();
-        creationOnCllickProductSheet.setParams(activity,context,mainActivity,dataCenter);
     }
     public void setProducts(List<ProductAPI> products){
         this.products = products;
@@ -75,7 +73,7 @@ public class RecViewSearchAdapter extends RecyclerView.Adapter<RecViewSearchAdap
         });
     }
     private void display (Integer position){
-        creationOnCllickProductSheet.setProductAPI(products.get(position));
+        creationOnCllickProductSheet.setParams(activity,context,mainActivity,dataCenter,products.get(position));
         creationOnCllickProductSheet.display();
     }
 

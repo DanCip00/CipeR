@@ -248,17 +248,17 @@ public class DataCenter {
     }
                     //Search
 
-    static final int SIZE_LIMIT=10;
+    static final int SIZE_LIMIT=8;
 
     public List<ProductAPI> searchProduct(String req){
         String buf = req.toLowerCase()+"%";
-        List<ProductAPI> list = ProductInterfaceApi.searchProduct(apiKey,buf);
+        List<ProductAPI> list = ProductInterfaceApi.searchProduct(apiKey,buf,SIZE_LIMIT);
         if (list!=null)
-            list = list.stream().limit(SIZE_LIMIT).collect(Collectors.toCollection(()->new LinkedList<>()));
-        List<ProductAPI> listSec = ProductInterfaceApi.searchProduct(apiKey,"%"+buf);
+            list = list.stream().collect(Collectors.toCollection(()->new LinkedList<>()));
+        List<ProductAPI> listSec = ProductInterfaceApi.searchProduct(apiKey,"%"+buf,SIZE_LIMIT);
         if (list!=null)
             if (listSec!=null) {
-                list.addAll(listSec.stream().limit(SIZE_LIMIT).collect(Collectors.toList()));
+                list.addAll(listSec);
                 return list;
             }else
                 return list;

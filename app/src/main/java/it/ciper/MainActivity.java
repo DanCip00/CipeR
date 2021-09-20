@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         creationThreadOfferte.setParams(this,this,this,dataCenter);
         Future<Boolean> exeOfferte=executor.submit(creationThreadOfferte);
 
-        //Gestione SEARCH
-        creationTreahSearch.setParams(this,this,this,dataCenter);
 
         //Posizione
             //Permessi
@@ -78,8 +76,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        findViewById(R.id.search_bar).setOnClickListener(creationTreahSearch);
+        findViewById(R.id.search_bar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setParamsSearch();
+                creationTreahSearch.disp();
+            }
+        });
 
+    }
+    private void setParamsSearch(){
+        creationTreahSearch.setParams(this,this,this,dataCenter);
     }
 
      public void updateInteface(){

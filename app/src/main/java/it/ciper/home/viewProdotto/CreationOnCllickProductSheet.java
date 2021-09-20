@@ -2,6 +2,7 @@ package it.ciper.home.viewProdotto;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -109,5 +110,20 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
             doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         }
         bottomSheetDialog.show();
+        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                freeMemo();
+            }
+        });
+    }
+
+    private void freeMemo(){
+        context =null;
+        activity =null;
+        mainActivity =null;
+        dataCenter =null;
+        productAPI =null;
+        System.gc();
     }
 }

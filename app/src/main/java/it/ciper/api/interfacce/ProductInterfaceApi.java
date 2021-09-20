@@ -377,10 +377,10 @@ public interface ProductInterfaceApi {
         }
     }
 
-    static List<ProductAPI> searchProduct(String apiKey, String richiesta){
+    static List<ProductAPI> searchProduct(String apiKey, String richiesta, int limit){
         String buf = null;
         SearchProd searchProduct = new SearchProd();
-        searchProduct.setParams(apiKey, richiesta);
+        searchProduct.setParams(apiKey, richiesta,limit);
         Future<String> ris = executor.submit(searchProduct);
         try {
             buf =ris.get();
@@ -396,8 +396,8 @@ public interface ProductInterfaceApi {
     }
 
     class SearchProd implements Callable<String>{
-        private String apiKey, richiesta;
-        void setParams(String apiKey, String richiesta) {
+        private String apiKey, richiesta, limit;
+        void setParams(String apiKey, String richiesta, int limit) {
             this.apiKey = apiKey;
             this.richiesta = richiesta;
         }
@@ -408,7 +408,8 @@ public interface ProductInterfaceApi {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n" +
                     "    \"apiKey\" : \""+apiKey+"\",\n" +
-                    "    \"richiesta\": \""+richiesta+"\"\n" +
+                    "    \"richiesta\": \""+richiesta+"\",\n" +
+                    "    \"limit\": "+limit+"\n" +
                     "}");
             Request request = new Request.Builder()
                     .url(serverDomain+"/product/search")
