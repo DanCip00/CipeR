@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
@@ -62,6 +66,15 @@ public class AddToCart implements View.OnClickListener {
                 .load(productAndPriceAPI.getSrcimage())
                 .into((ImageView) dialog.findViewById(R.id.productImageAddProd));
 
+        TextView sum = dialog.findViewById(R.id.addingPricePopup);
+        sum.setText((productAndPriceAPI.isOffert()?productAndPriceAPI.getPrice().getOffertprice():productAndPriceAPI.getPrice().getPrice())+"€");
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                sum.setText(formatter.format(numberPicker.getValue()*(productAndPriceAPI.isOffert()?productAndPriceAPI.getPrice().getOffertprice():productAndPriceAPI.getPrice().getPrice()))+"€");
+            }
+        });
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
