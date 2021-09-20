@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutInner"
-        android:layout_width="407dp"
+        android:layout_width="0dp"
+        android:elevation="300dp"
         android:layout_height="20pt"
         android:background="@color/ciperDarkPurpleSimil"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,14 +74,40 @@
         android:id="@+id/nota"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:text="SPACE FOR SEARCH BAR "
+        android:background="@color/ciperDarkPurpleSimil"
+        android:text=" "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutInner" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutInner"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
-        <ImageView
+    <TextView
+        android:id="@+id/search_bar"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/shape_search_bar"
+        android:cursorVisible="false"
+        android:textSize="17dp"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/opensans_italic"
+        android:hapticFeedbackEnabled="true"
+        android:hint="Cerca un prodotto"
+        android:inputType="textShortMessage"
+        android:paddingLeft="17dp"
+
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutInner"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
             android:id="@+id/underTextOfferte"
             android:layout_width="150dp"
             android:layout_height="60dp"

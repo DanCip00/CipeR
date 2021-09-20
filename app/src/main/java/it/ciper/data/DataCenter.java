@@ -73,6 +73,8 @@ public class DataCenter {
     //Price and ProductAndPriceAPI
     public List<PriceAPI> getAllPriceAPI (ProductAPI productAPI){
         List<PriceAPI> list = ProductInterfaceApi.getAllPrices(apiKey,productAPI.getProductcod());
+        if (list ==null)
+            return null;
         list.forEach(p->addPriceAPI(p));
         return list;
     }
@@ -243,5 +245,25 @@ public class DataCenter {
             return -1;
         distances.put(shop.getSellercod(),metri);
         return metri;
+    }
+                    //Search
+
+    static final int SIZE_LIMIT=10;
+
+    public List<ProductAPI> searchProduct(String req){
+        String buf = req.toLowerCase()+"%";
+        List<ProductAPI> list = ProductInterfaceApi.searchProduct(apiKey,buf);
+        if (list!=null)
+            list = list.stream().limit(SIZE_LIMIT).collect(Collectors.toCollection(()->new LinkedList<>()));
+        List<ProductAPI> listSec = ProductInterfaceApi.searchProduct(apiKey,"%"+buf);
+        if (list!=null)
+            if (listSec!=null) {
+                list.addAll(listSec.stream().limit(SIZE_LIMIT).collect(Collectors.toList()));
+                return list;
+            }else
+                return list;
+        if (listSec!=null)
+            return listSec;
+        return new LinkedList<>();
     }
 }

@@ -46,7 +46,16 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         this.dataCenter = dataCenter;
         this.productAPI = productAPI;
     }
+    public void setParams(Activity activity, Context context, MainActivity mainActivity, DataCenter dataCenter){
+        this.activity = activity;
+        this.context = context;
+        this.mainActivity = mainActivity;
+        this.dataCenter = dataCenter;
+    }
 
+    public void setProductAPI(ProductAPI productAPI) {
+        this.productAPI = productAPI;
+    }
 
     @Override
     public Boolean call() throws Exception {

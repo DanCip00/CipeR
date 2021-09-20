@@ -4,6 +4,7 @@ import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.home.viewCarrelli.CreationThreadCarrelli;
 import it.ciper.home.viewOfferte.CreationThreadOfferte;
 import it.ciper.home.viewOfferte.RecViewOffertAdapter;
+import it.ciper.home.viewSearch.CreationTreahSearch;
 import it.ciper.position.PositionHandler;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Offerte
     CreationThreadOfferte creationThreadOfferte = new CreationThreadOfferte();
+
+    //Search
+    CreationTreahSearch creationTreahSearch = new CreationTreahSearch();
 
     //Position
     PositionHandler positionHandler = new PositionHandler();
@@ -55,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         creationThreadOfferte.setParams(this,this,this,dataCenter);
         Future<Boolean> exeOfferte=executor.submit(creationThreadOfferte);
 
+        //Gestione SEARCH
+        creationTreahSearch.setParams(this,this,this,dataCenter);
+
         //Posizione
             //Permessi
         positionHandler.setParams(this,this,this,dataCenter);
@@ -70,12 +78,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        findViewById(R.id.search_bar).setOnClickListener(creationTreahSearch);
+
     }
 
      public void updateInteface(){
         creationThreadOfferte.updateInteface();
         creationThreadCarrelli.updateInteface();
     }
-
 
 }

@@ -2,8 +2,6 @@ package it.ciper.home.viewProdotto.doveConviene;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import it.ciper.MainActivity;
@@ -26,7 +23,6 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
-import it.ciper.home.viewProdotto.carrelliProductSheet.InnerRecViewProdAdapter;
 import it.ciper.json.DownloadImageTask;
 
 public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConviene.ViewHolder> {
@@ -115,7 +111,7 @@ public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConvien
             super(itemView);
 
             this.shopImage = itemView.findViewById(R.id.shopIconDoveConviene);
-            this.shopName= itemView.findViewById(R.id.shopNameDoveConviene);
+            this.shopName= itemView.findViewById(R.id.productNameSearch);
             this.oldPrice = itemView.findViewById(R.id.oldPriceDoveConviene);
             this.newPrice = itemView.findViewById(R.id.newPriceDoveConviene);
             this.distance = itemView.findViewById(R.id.distanzaDoveConviene);

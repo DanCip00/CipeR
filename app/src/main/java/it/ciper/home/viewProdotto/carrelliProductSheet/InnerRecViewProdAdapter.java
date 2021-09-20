@@ -110,7 +110,7 @@ public class InnerRecViewProdAdapter extends RecyclerView.Adapter<InnerRecViewPr
             addButton = itemView.findViewById(R.id.addToCartDoveConviene);
             oldPrice = itemView.findViewById(R.id.oldPriceDoveConviene);
             newPrice = itemView.findViewById(R.id.newPriceDoveConviene);
-            shopName = itemView.findViewById(R.id.shopNameDoveConviene);
+            shopName = itemView.findViewById(R.id.productNameSearch);
             shopIcon = itemView.findViewById(R.id.shopIconDoveConviene);
 
         }

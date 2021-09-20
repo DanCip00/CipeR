@@ -9,7 +9,7 @@
     android:background="@drawable/popup_add_prod_background">
 
     <TextView
-        android:id="@+id/staticTextAggiungiAlCarrello"
+        android:id="@+id/staticTextRicerca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/staticTextAggiungiAlCarrello" />
+        app:layout_constraintTop_toBottomOf="@+id/staticTextRicerca" />
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/productImageAddProd"

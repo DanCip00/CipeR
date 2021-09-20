@@ -377,4 +377,48 @@ public interface ProductInterfaceApi {
         }
     }
 
+    static List<ProductAPI> searchProduct(String apiKey, String richiesta){
+        String buf = null;
+        SearchProd searchProduct = new SearchProd();
+        searchProduct.setParams(apiKey, richiesta);
+        Future<String> ris = executor.submit(searchProduct);
+        try {
+            buf =ris.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ProductAPI[] prodotti = JsonManager.parseJsonClass(buf,ProductAPI[].class);
+        if (prodotti.length==0)
+            return null;
+        return Arrays.stream(prodotti).collect(Collectors.toList());
+    }
+
+    class SearchProd implements Callable<String>{
+        private String apiKey, richiesta;
+        void setParams(String apiKey, String richiesta) {
+            this.apiKey = apiKey;
+            this.richiesta = richiesta;
+        }
+        @Override
+        public String call() throws Exception {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n" +
+                    "    \"apiKey\" : \""+apiKey+"\",\n" +
+                    "    \"richiesta\": \""+richiesta+"\"\n" +
+                    "}");
+            Request request = new Request.Builder()
+                    .url(serverDomain+"/product/search")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+    }
+
+
 }
