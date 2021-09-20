@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Callable;
 
 import it.ciper.MainActivity;
@@ -74,29 +76,43 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
         recyclerView.addItemDecoration(itemDecor);
         searchBar.setCursorVisible(true);
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
+        searchBar.addTextChangedListener(
+                new TextWatcher() {
+                    @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+                    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    private Timer timer = new Timer();
+                    private final long DELAY = 1000; // Milliseconds
 
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString()==null||editable.toString().compareTo("")==0){
-                    recViewSearchAdapter.setProducts(null);
-                    System.gc();
-                    return;
+                    @Override
+                    public void afterTextChanged(final Editable s) {
+                        timer.cancel();
+                        timer = new Timer();
+                        timer.schedule(
+                                new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        activity.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (s==null || s.toString().compareTo("")==0){
+                                                    recViewSearchAdapter.setProducts(null);
+                                                    System.gc();
+                                                    return;
+                                                }
+                                                products = dataCenter.searchProduct(s.toString());
+                                                recViewSearchAdapter.setProducts(products);
+                                                System.gc();
+                                            }
+                                        });
+                                    }
+                                },
+                                DELAY
+                        );
+                    }
                 }
-                products = dataCenter.searchProduct(editable.toString());
-                recViewSearchAdapter.setProducts(products);
-            }
-        });
+        );
 
         dialog.findViewById(R.id.backImageSearch).setOnClickListener(new View.OnClickListener() {
             @Override

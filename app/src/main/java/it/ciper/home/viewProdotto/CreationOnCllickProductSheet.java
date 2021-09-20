@@ -37,6 +37,7 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
     protected RecyclerView doveConviene;
     protected RecViewDoveConviene recViewDoveConvieneAdapter;
 
+    protected ImageView productImage;
     protected ProductAPI productAPI;
 
 
@@ -84,6 +85,7 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
             }
         });
 
+        productImage = bottomSheetDialog.findViewById(R.id.productImageProductSheet);
         new DownloadImageTask((ImageView) bottomSheetDialog.findViewById(R.id.productImageProductSheet))
                 .execute(productAPI.getSrcimage());
         description = bottomSheetDialog.findViewById(R.id.descriptionText);
@@ -119,11 +121,17 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
     }
 
     private void freeMemo(){
+        productImage.setImageBitmap(null);
         context =null;
         activity =null;
         mainActivity =null;
         dataCenter =null;
         productAPI =null;
+        doveConviene =null;
+        recViewDoveConvieneAdapter =null;
+        carrelliProdotto =null;
+        carrelliProdotto =null;
+        description.setText(null);
         System.gc();
     }
 }

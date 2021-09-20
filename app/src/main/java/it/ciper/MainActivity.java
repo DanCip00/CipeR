@@ -67,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
         Future<Boolean> locationFuture =executor.submit(positionHandler);
 
         try {
-            if(exeOfferte.get().booleanValue() && exeCarrelli.get().booleanValue() && locationFuture.get().booleanValue())
+            if(exeOfferte.get().booleanValue() && exeCarrelli.get().booleanValue() && locationFuture.get().booleanValue()) {
                 System.out.println("Caricamento completato");
+                System.gc();
+            }
         } catch (ExecutionException e) {
             Toast.makeText(this,"E' necessaria una connessione internet",Toast.LENGTH_LONG).show();
             e.printStackTrace();
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
      public void updateInteface(){
         creationThreadOfferte.updateInteface();
         creationThreadCarrelli.updateInteface();
+        System.gc();
     }
 
 }

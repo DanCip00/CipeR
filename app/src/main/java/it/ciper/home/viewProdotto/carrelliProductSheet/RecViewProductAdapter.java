@@ -27,7 +27,7 @@ import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
 
 public class RecViewProductAdapter extends RecyclerView.Adapter<RecViewProductAdapter.ViewHolder> {
-    //TODO questo è per carrelli ProductSheet
+
     private Context context;
     private DataCenter dataCenter;
     private Activity activity;
