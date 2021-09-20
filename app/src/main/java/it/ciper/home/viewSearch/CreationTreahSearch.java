@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +27,7 @@ import it.ciper.R;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.home.viewOfferte.RecViewOffertAdapter;
+import it.ciper.json.DividerItemDecorationCiper;
 
 public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListener {
     protected Activity activity;
@@ -73,7 +73,7 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         recViewSearchAdapter.setProducts(null);
         recyclerView.setAdapter(recViewSearchAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
+        DividerItemDecorationCiper itemDecor = new DividerItemDecorationCiper(context, HORIZONTAL);
         recyclerView.addItemDecoration(itemDecor);
         searchBar.setCursorVisible(true);
 

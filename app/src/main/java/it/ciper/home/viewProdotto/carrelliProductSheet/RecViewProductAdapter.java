@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +24,7 @@ import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
+import it.ciper.json.DividerItemDecorationCiper;
 
 public class RecViewProductAdapter extends RecyclerView.Adapter<RecViewProductAdapter.ViewHolder> {
 
@@ -85,7 +85,7 @@ public class RecViewProductAdapter extends RecyclerView.Adapter<RecViewProductAd
         adapter.setContext(context,activity,main);
         holder.innerRec.setAdapter(adapter);
         holder.innerRec.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
+        DividerItemDecorationCiper itemDecor = new DividerItemDecorationCiper(context, HORIZONTAL);
         holder.innerRec.addItemDecoration(itemDecor);
 
     }

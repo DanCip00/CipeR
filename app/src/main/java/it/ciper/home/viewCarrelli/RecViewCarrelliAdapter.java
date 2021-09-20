@@ -16,13 +16,13 @@ import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 
+import it.ciper.json.DividerItemDecorationCiper;
 import it.ciper.listeners.carrello.CreateNewCart;
 import it.ciper.listeners.carrello.ModifyButtonCart;
 
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -85,7 +85,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
                 holder.titoloCarrelloTextView.setText(carrelliAPI.get(posizione).getTitolo());
                 holder.shopsListRec.setAdapter(adapter);
                 holder.shopsListRec.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-                DividerItemDecoration itemDecor = new DividerItemDecoration(context, HORIZONTAL);
+                DividerItemDecorationCiper itemDecor = new DividerItemDecorationCiper(context, HORIZONTAL);
                 holder.shopsListRec.addItemDecoration(itemDecor);
 
                 if (CarrelliInterfaceApi.getCartSellersInfoList(dataCenter.getApiKey(),carrelliAPI.get(posizione).getCartcod()).size()==0){
