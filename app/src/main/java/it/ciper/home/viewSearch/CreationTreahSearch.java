@@ -83,7 +83,7 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
                     @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
                     private Timer timer = new Timer();
-                    private final long DELAY = 1000; // Milliseconds
+                    private final long DELAY = 500; // Milliseconds
 
                     @Override
                     public void afterTextChanged(final Editable s) {

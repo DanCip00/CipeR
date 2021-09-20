@@ -13,6 +13,7 @@ import android.widget.NumberPicker;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import it.ciper.MainActivity;
@@ -22,7 +23,6 @@ import it.ciper.api.interfacce.ProductInterfaceApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
-import it.ciper.json.DownloadImageTask;
 
 public class AddToCart implements View.OnClickListener {
 
@@ -58,8 +58,10 @@ public class AddToCart implements View.OnClickListener {
         numberPicker.setMaxValue(99);
         numberPicker.setMinValue(1);
 
-        new DownloadImageTask((ImageView) dialog.findViewById(R.id.productImageAddProd))
-                .execute(productAndPriceAPI.getSrcimage());
+        Glide.with(dialog.getContext())
+                .load(productAndPriceAPI.getSrcimage())
+                .into((ImageView) dialog.findViewById(R.id.productImageAddProd));
+
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override

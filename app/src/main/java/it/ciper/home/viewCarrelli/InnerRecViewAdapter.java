@@ -9,13 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import it.ciper.R;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.shop.ShopCartInfoAPI;
-import it.ciper.json.DownloadImageTask;
 
 public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapter.ViewHolder> {
 
@@ -49,8 +50,8 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
             holder.numeroOggettiTextView.setText(items.get(position).getQuant().toString());
             holder.shopName.setText(dataCenter.getShopAPI(items.get(position).getSellerCod()).getSellername());
 
-            new DownloadImageTask((ImageView) holder.shopIconView)
-                    .execute(dataCenter.getShopAPI(items.get(position).getSellerCod()).getSrclogo());
+            Glide.with(holder.itemView).load(dataCenter.getShopAPI(items.get(position).getSellerCod()).getSrclogo())
+                    .into(holder.shopIconView);
         }
     }
 

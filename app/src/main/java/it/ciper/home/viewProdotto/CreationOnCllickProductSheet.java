@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.concurrent.Callable;
@@ -22,7 +23,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.home.viewProdotto.carrelliProductSheet.RecViewProductAdapter;
 import it.ciper.home.viewProdotto.doveConviene.RecViewDoveConviene;
-import it.ciper.json.DownloadImageTask;
+
 
 public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnClickListener {
     protected Activity activity;
@@ -86,8 +87,11 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         });
 
         productImage = bottomSheetDialog.findViewById(R.id.productImageProductSheet);
-        new DownloadImageTask((ImageView) bottomSheetDialog.findViewById(R.id.productImageProductSheet))
-                .execute(productAPI.getSrcimage());
+
+        Glide.with(activity)
+                .load(productAPI.getSrcimage())
+                .into((ImageView) bottomSheetDialog.findViewById(R.id.productImageProductSheet));
+
         description = bottomSheetDialog.findViewById(R.id.descriptionText);
         description.setText(productAPI.getDescription());
 

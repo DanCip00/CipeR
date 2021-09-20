@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +25,6 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
-import it.ciper.json.DownloadImageTask;
 
 public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConviene.ViewHolder> {
 
@@ -84,8 +85,10 @@ public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConvien
 
         ShopAPI shop = dataCenter.getShopAPI(pap.getPrice().getSellercod());
         holder.shopName.setText(shop.getSellername());
-        new DownloadImageTask((ImageView) holder.shopImage)
-                .execute(shop.getSrclogo());
+
+        Glide.with(holder.itemView)
+                .load(shop.getSrclogo())
+                .into(holder.shopImage);
 
         float metri =dataCenter.getDistace(dataCenter.getShopAPI(pap.getPrice().getSellercod()));
         if (metri<1000){

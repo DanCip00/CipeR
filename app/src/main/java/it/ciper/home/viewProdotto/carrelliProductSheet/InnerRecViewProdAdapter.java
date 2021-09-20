@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +25,6 @@ import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
-import it.ciper.json.DownloadImageTask;
 import it.ciper.listeners.product.AddToCart;
 
 public class InnerRecViewProdAdapter extends RecyclerView.Adapter<InnerRecViewProdAdapter.ViewHolder> {
@@ -82,9 +83,10 @@ public class InnerRecViewProdAdapter extends RecyclerView.Adapter<InnerRecViewPr
 
         holder.shopName.setText(shop.getSellername());
 
+        Glide.with(holder.itemView)
+                .load(shop.getSrclogo())
+                .into((ImageView) holder.shopIcon);
 
-        new DownloadImageTask((ImageView) holder.shopIcon)
-                .execute(shop.getSrclogo());
 
         AddToCart addToCart = new AddToCart();
         addToCart.setContextAndActivity(context,activity,main,dataCenter,cart,pap);

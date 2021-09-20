@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.home.viewOfferte.RecViewOffertAdapter;
 import it.ciper.home.viewProdotto.CreationOnCllickProductSheet;
-import it.ciper.json.DownloadImageTask;
+
 
 public class RecViewSearchAdapter extends RecyclerView.Adapter<RecViewSearchAdapter.ViewHolder> {
 
@@ -62,8 +64,9 @@ public class RecViewSearchAdapter extends RecyclerView.Adapter<RecViewSearchAdap
         ProductAPI productAPI = products.get(position);
         holder.productName.setText(productAPI.getName());
 
-        new DownloadImageTask((ImageView) holder.productImage)
-                .execute(productAPI.getSrcimage());
+        Glide.with(holder.itemView)
+                .load(productAPI.getSrcimage())
+                .into(holder.productImage);
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override

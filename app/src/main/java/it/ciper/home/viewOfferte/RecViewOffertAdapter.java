@@ -13,18 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
-import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.home.viewProdotto.CreationOnCllickProductSheet;
-import it.ciper.json.DownloadImageTask;
 
 public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdapter.ViewHolder>{
 
@@ -66,12 +63,14 @@ public class RecViewOffertAdapter extends RecyclerView.Adapter<RecViewOffertAdap
             holder.oldPrice.setText(topFiveOfferts.get(position).getPrice().getPrice() + "€");
             holder.newPrice.setText(topFiveOfferts.get(position).getPrice().getOffertprice() + "€");
 
+            Glide.with(holder.itemView)
+                    .load(topFiveOfferts.get(position).getSrcimage())
+                    .into(holder.productImage);
 
-            new DownloadImageTask((ImageView) holder.productImage)
-                    .execute(topFiveOfferts.get(position).getSrcimage());
+            Glide.with(holder.itemView)
+                    .load(dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo())
+                    .into(holder.shopLogo);
 
-            new DownloadImageTask((ImageView) holder.shopLogo)
-                    .execute(dataCenter.getShopAPI(topFiveOfferts.get(position).getPrice().getSellercod()).getSrclogo());
 
             holder.offertItem.setOnClickListener(new View.OnClickListener() {
                 @Override
