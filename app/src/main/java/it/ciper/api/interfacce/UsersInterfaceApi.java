@@ -167,7 +167,12 @@ public interface UsersInterfaceApi {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ResultLogIn resultLogIn = JsonManager.parseJsonClass(buf,ResultLogIn.class);
+        ResultLogIn resultLogIn;
+        try {
+             resultLogIn = JsonManager.parseJsonClass(buf, ResultLogIn.class);
+        }catch(IllegalArgumentException e){
+            return null;
+        }
         if (resultLogIn==null || !resultLogIn.isStatus())
             return null;
         return resultLogIn.getApiKey();
