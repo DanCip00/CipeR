@@ -1,18 +1,14 @@
 package it.ciper;
 
-import android.location.Address;
-import android.location.Location;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -22,14 +18,13 @@ import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.data.DataCenter;
 import it.ciper.home.viewCarrelli.CreationThreadCarrelli;
 import it.ciper.home.viewOfferte.CreationThreadOfferte;
-import it.ciper.home.viewOfferte.RecViewOffertAdapter;
 import it.ciper.home.viewSearch.CreationTreahSearch;
+import it.ciper.login.LoginActivity;
 import it.ciper.position.PositionHandler;
 
 public class MainActivity extends AppCompatActivity {
     //API
-        final String apiKey = SettingsApi.apiKey;
-    DataCenter dataCenter = new DataCenter(apiKey);
+    DataCenter dataCenter;
 
     //EXECUTOR
     ExecutorService executor = SettingsApi.executor;
@@ -51,6 +46,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //GESTIONE LOG IN
+        SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+        String logged = preferences.getString("logged", "");
+
+        if (logged.compareTo("false")==0) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        findViewById(R.id.logoutButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences.edit().putString("logged", "false").apply();
+                preferences.edit().putString("ricordami", "false").apply();
+                preferences.edit().putString("apiKey", "").apply();
+
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        if(logged.compareTo("false")==0)
+            return;
+        if (preferences.getString("ricordami", "").compareTo("false")==0){
+            preferences.edit().putString("logged", "false").apply();
+        }
+
+        String apiKey = preferences.getString("apiKey", "");
+        dataCenter = new DataCenter(apiKey);
 
         //Gestione CARRELLI
         creationThreadCarrelli.setParams(this,this,this,dataCenter);

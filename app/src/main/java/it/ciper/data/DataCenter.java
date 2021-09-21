@@ -43,16 +43,28 @@ public class DataCenter {
 
     private int numOfferts = 0;
     private String apiKey=null;
+    private String serverToken= null;
 
     public DataCenter(String apiKey){
         super();
         this.apiKey = apiKey;
     }
 
+
     public String getApiKey() {
         return apiKey;
     }
-                        //ProductAPI
+
+    public String getServerToken() {
+        return serverToken;
+    }
+
+    public void setServerToken(String serverToken) {
+        this.serverToken = serverToken;
+    }
+
+    //ProductAPI
+
 
     public ProductAPI getProductAPI(String productCod){
         if (productsAPI.containsKey(productCod))

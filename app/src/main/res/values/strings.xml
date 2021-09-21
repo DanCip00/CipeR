@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CipeR</string>
     <string name="login">Log In</string>
+    <string name="logout">Log out</string>
     <string name="logo_description">logo text</string>
     <string name="offert_under_text">Offerte</string>
     <string name="product_image">Product image</string>
