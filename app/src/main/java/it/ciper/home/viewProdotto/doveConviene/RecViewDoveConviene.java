@@ -25,6 +25,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
+import it.ciper.listeners.product.AddNewShopToCart;
 
 public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConviene.ViewHolder> {
 
@@ -96,7 +97,9 @@ public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConvien
             holder.distance.setText(Integer.valueOf((int)metri).toString());
         }else
             holder.distance.setText(Integer.valueOf((int)(metri/1000)).toString());
-        //TODO set listener button
+        AddNewShopToCart addNewShopToCart = new AddNewShopToCart();
+        addNewShopToCart.setParams(activity,context, main, dataCenter, pap);
+        holder.addToCart.setOnClickListener(addNewShopToCart);
     }
 
     @Override

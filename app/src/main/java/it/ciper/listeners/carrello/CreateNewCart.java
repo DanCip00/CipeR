@@ -9,15 +9,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.util.function.Consumer;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
+import it.ciper.listeners.product.RecViewCartAddShopAdapter;
 
-public class CreateNewCart implements View.OnClickListener {
+public class CreateNewCart<T extends RecyclerView.Adapter> implements View.OnClickListener {
      Context context;
      Activity activity;
      DataCenter dataCenter;
@@ -30,6 +34,12 @@ public class CreateNewCart implements View.OnClickListener {
          this.main = main;
      }
 
+     private T item = null;
+     private Consumer<T> consumer = null;
+     public void setFunct(T adapter, Consumer<T> cons){
+        item = adapter;
+        consumer = cons;
+     }
 
     @Override
     public void onClick(View view) {
@@ -54,6 +64,8 @@ public class CreateNewCart implements View.OnClickListener {
 
                 bottomSheetDialog.hide();
                 CarrelliInterfaceApi.addCart(dataCenter.getApiKey(),text.getText().toString());
+                if (item!=null)
+                    consumer.accept(item);
                 main.updateInteface();
             }
         });
