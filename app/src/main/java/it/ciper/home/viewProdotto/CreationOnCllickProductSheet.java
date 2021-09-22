@@ -105,13 +105,16 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         carrelliProdotto.setAdapter(carrelliProductAdapter);
         carrelliProdotto.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
+        if (carrelliProductAdapter.getEmpty())
+            bottomSheetDialog.findViewById(R.id.staticTextItuoiCarrelli).setVisibility(View.GONE);
 
         doveConviene = bottomSheetDialog.findViewById(R.id.doveConvieneRecView);
         recViewDoveConvieneAdapter = new RecViewDoveConviene();
         recViewDoveConvieneAdapter.setContext(context,activity,mainActivity,dataCenter,productAPI);
-        if (recViewDoveConvieneAdapter.getEmpty())
+        if (recViewDoveConvieneAdapter.getEmpty()) {
             doveConviene.setVisibility(View.GONE);
-        else {
+            bottomSheetDialog.findViewById(R.id.staticTextDoveConviene).setVisibility(View.GONE);
+        }else {
             doveConviene.setAdapter(recViewDoveConvieneAdapter);
             doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         }

@@ -1,5 +1,7 @@
 package it.ciper.home.viewCarrelli;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,27 +9,41 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import it.ciper.MainActivity;
 import it.ciper.R;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.shop.ShopCartInfoAPI;
+import it.ciper.home.viewSearch.CreationTreahSearch;
 
 public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapter.ViewHolder> {
 
     List<ShopCartInfoAPI> items;
-    DataCenter dataCenter;
+
+    protected Activity activity;
+    protected Context context;
+    protected MainActivity mainActivity;
+    protected DataCenter dataCenter;
 
 
+    public void setParams(Activity activity, Context context, MainActivity mainActivity, DataCenter dataCenter){
+        this.activity = activity;
+        this.context = context;
+        this.mainActivity = mainActivity;
+        this.dataCenter = dataCenter;
+    }
     void setCartItems(DataCenter dataCenter, String cartCod) {
         items = CarrelliInterfaceApi.getCartSellersInfoList(dataCenter.getApiKey(), cartCod);
         this.dataCenter=dataCenter;
     }
+
 
     @NonNull
     @Override
@@ -35,7 +51,7 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
         switch (viewType) {
             case 1:
                 View viewAdd = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_product_item, parent, false);
-                InnerRecViewAdapter.ViewHolder holderAdd = new InnerRecViewAdapter.ViewHolder(viewAdd);
+                InnerRecViewAdapter.ViewHolderAddProd holderAdd = new InnerRecViewAdapter.ViewHolderAddProd(viewAdd);
                 return holderAdd;
             default:
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_item, parent, false);
@@ -52,6 +68,10 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
 
             Glide.with(holder.itemView).load(dataCenter.getShopAPI(items.get(position).getSellerCod()).getSrclogo())
                     .into(holder.shopIconView);
+        }else if (holder.parent!=null){
+            CreationTreahSearch creationTreahSearch = new CreationTreahSearch();
+            creationTreahSearch.setParams(activity,context,mainActivity,dataCenter);
+            holder.parent.setOnClickListener(creationTreahSearch);
         }
     }
 
@@ -74,6 +94,7 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
         private ImageView shopIconView;
         private TextView shopName, numeroOggettiTextView;
         private View itemView;
+        protected ConstraintLayout parent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +109,7 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
 
         public ViewHolderAddProd(@NonNull View itemView) {
             super(itemView);
+            parent = itemView.findViewById(R.id.addProductItem);
 
         }
     }

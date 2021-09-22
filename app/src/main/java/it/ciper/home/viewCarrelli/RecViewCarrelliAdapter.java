@@ -81,6 +81,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
 
                 //TODO implements avatar for each user
                 InnerRecViewAdapter adapter = new InnerRecViewAdapter();
+                adapter.setParams(activity,context,main,dataCenter);
                 adapter.setCartItems(dataCenter, carrelliAPI.get(posizione).getCartcod());
                 holder.titoloCarrelloTextView.setText(carrelliAPI.get(posizione).getTitolo());
                 holder.shopsListRec.setAdapter(adapter);
