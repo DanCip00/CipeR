@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.80" />
+        app:layout_constraintGuide_percent="0.87" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -77,7 +77,7 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/shape_text_adding_price"
         android:ems="10"
-
+        android:maxLength="20"
         android:inputType="textPersonName"
         android:textColor="@color/black"
         android:paddingLeft="13dp"
