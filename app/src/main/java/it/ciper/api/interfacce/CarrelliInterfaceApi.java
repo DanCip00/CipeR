@@ -146,7 +146,7 @@ public interface CarrelliInterfaceApi {
             e.printStackTrace();
         }
         CarrelloAPI[] carrelli = JsonManager.parseJsonClass(buf,CarrelloAPI[].class);
-        if (carrelli.length==0)
+        if (carrelli==null || carrelli.length==0)
             return null;
         return Arrays.stream(carrelli).collect(Collectors.toList());
     }
@@ -163,6 +163,7 @@ public interface CarrelliInterfaceApi {
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n    \"apiKey\" : \""+apiKey+"\"\n}");
+
             Request request = new Request.Builder()
                     .url(serverDomain+"/cart/get")
                     .method("POST", body)

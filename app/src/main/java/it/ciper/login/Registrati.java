@@ -77,16 +77,18 @@ public class Registrati implements View.OnClickListener {
                     indirizzo = ((EditText) (dialog.findViewById(R.id.addressTextEditSignIn))).getText().toString();
                     nome = ((EditText) (dialog.findViewById(R.id.nameTextEditSignIn))).getText().toString();
                     cognome = ((EditText) (dialog.findViewById(R.id.cognomeTextEditSignIn))).getText().toString();
-                    password = ((EditText) (dialog.findViewById(R.id.passwordEditText))).getText().toString();
+                    password = ((EditText) (dialog.findViewById(R.id.editTextTextPasswordSignIn))).getText().toString();
                 }catch(NullPointerException e) {
                     Toast.makeText(activity.getApplicationContext(), "Riempire tutti i campi!", Toast.LENGTH_LONG).show();
                     return;
                 }
 
 
-                String apiKey =UsersInterfaceApi.createUser(UsersInterfaceApi.getServerToken(),username,email,nome,cognome,password,indirizzo,i);
-                if (apiKey==null || apiKey.compareTo("false")==0)
+                String apiKey =UsersInterfaceApi.createUser(UsersInterfaceApi.getServerToken(),username,email,nome,cognome,password,indirizzo,i).replace("\"","");
+                if (apiKey==null || apiKey.compareTo("false")==0) {
+                    Toast.makeText(context.getApplicationContext(), "Username non disponibile!", Toast.LENGTH_LONG).show();
                     return;
+                }
                 activity.getSharedPreferences("login", activity.MODE_PRIVATE).edit().putString("apiKey", apiKey).apply();
                 SharedPreferences preferences = activity.getSharedPreferences("login", activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();

@@ -88,7 +88,7 @@ public interface UsersInterfaceApi {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if (buf=="false")
+        if (buf.compareTo("false")==0)
             return null;
         return buf;
     }
@@ -96,20 +96,21 @@ public interface UsersInterfaceApi {
         private String token, email, name, surname, password, address, username;
         private Integer avatar;
 
-        void setParams(String token, String username, String email, String name, String surname, String password, String address, Integer avatar) {
-            this.token = token;
+        void setParams(String serverToken, String username, String email, String name, String surname, String password, String address, Integer avatar) {
+            this.token = serverToken;
             this.email = email;
             this.address =address;
             this.avatar = avatar;
             this.name = name;
             this.surname = surname;
             this.username = username;
-            this.password = sha256(password);
+            this.password = sha256(password+serverToken);             //La password è sha256(password+serverToken)
         }
         @Override
         public String call() throws Exception {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
+
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n" +
                     "    \"token\" : \""+token+"\",\n" +
@@ -119,8 +120,7 @@ public interface UsersInterfaceApi {
                     "    \"surname\" : \""+surname+"\",\n" +
                     "    \"email\" : \""+email+"\",\n" +
                     "    \"address\" : \""+address+"\",\n" +
-                    "    \"avatar\" : "+avatar+"\n" +
-                    "}");
+                    "    \"avatar\" : "+avatar+" }");
             Request request = new Request.Builder()
                     .url(serverDomain+"/user/create")
                     .method("POST", body)
@@ -155,10 +155,10 @@ public interface UsersInterfaceApi {
     }
 
 
-    static String login(String token, String username, String password){
+    static String login(String serverToken, String username, String password){
         String buf = null;
         Login login = new Login();
-        login.setParams(token, username, password);
+        login.setParams(serverToken, username, password);
         Future<String> ris = executor.submit(login);
         try {
             buf =ris.get();
@@ -180,10 +180,10 @@ public interface UsersInterfaceApi {
     class Login implements Callable<String> {
         private String user, password, token;
 
-        void setParams(String user, String password, String token){
+        void setParams(String user, String password, String ServerToken){
             this.user = user;
-            this.password = sha256(password);
-            this.token = token;
+            this.password = sha256(password+ServerToken);
+            this.token = ServerToken;
         }
 
         @Override
