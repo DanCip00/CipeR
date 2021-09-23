@@ -82,7 +82,6 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.hide();
-                mainActivity.updateInteface();
             }
         });
 

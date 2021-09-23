@@ -84,8 +84,8 @@ public class CreateCartSheet implements View.OnClickListener {
         ((ImageView)bottomSheetDialog.findViewById(R.id.backImageCartSheet)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                main.updateInteface();
                 bottomSheetDialog.hide();
+                main.updateCart();
             }
         });
         bottomSheetDialog.show();

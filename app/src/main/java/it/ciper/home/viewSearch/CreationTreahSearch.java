@@ -118,7 +118,6 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
             @Override
             public void onClick(View view) {
                 dialog.hide();
-                mainActivity.updateInteface();
                 freeMemory();
             }
         });

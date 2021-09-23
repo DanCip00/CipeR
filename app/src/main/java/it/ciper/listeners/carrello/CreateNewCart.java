@@ -66,7 +66,7 @@ public class CreateNewCart<T extends RecyclerView.Adapter> implements View.OnCli
                 CarrelliInterfaceApi.addCart(dataCenter.getApiKey(),text.getText().toString());
                 if (item!=null)
                     consumer.accept(item);
-                main.updateInteface();
+                main.updateCart();
             }
         });
     }

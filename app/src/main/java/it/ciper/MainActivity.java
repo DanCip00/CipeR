@@ -121,5 +121,8 @@ public class MainActivity extends AppCompatActivity {
         creationThreadCarrelli.updateInteface();
         System.gc();
     }
+    public void updateCart(){
+        creationThreadCarrelli.updateInteface();
+    }
 
 }

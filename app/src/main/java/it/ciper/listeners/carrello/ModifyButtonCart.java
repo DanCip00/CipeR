@@ -60,7 +60,7 @@ public class ModifyButtonCart implements View.OnClickListener {
                 }
                 dataCenter.renameCart(cart.getCartcod(),buff);
                 bottomSheetDialog.hide();
-                main.updateInteface();
+                main.updateCart();
             }
         });
 
@@ -69,7 +69,7 @@ public class ModifyButtonCart implements View.OnClickListener {
             public void onClick(View view) {
                 dataCenter.remCarrello(cart);
                 bottomSheetDialog.hide();
-                main.updateInteface();
+                main.updateCart();
             }
         });
 

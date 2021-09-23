@@ -80,7 +80,7 @@ public class AddToCart implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 ProductInterfaceApi.addToSherCart(dataCenter.getApiKey(),carrelloAPI.getCartcod(),productAndPriceAPI,numberPicker.getValue());
-                main.updateInteface();
+                main.updateCart();
                 dialog.hide();
             }
         });
