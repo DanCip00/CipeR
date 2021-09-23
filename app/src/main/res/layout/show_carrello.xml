@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/carrelloShett"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_search_rec">
+
+
+    <TextView
+        android:id="@+id/cartNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:fontFamily="@font/notosans_bold"
+        android:text="Nome carrello"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/backImageCartSheet"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cartNameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cartNameTextView"
+        app:srcCompat="@drawable/ic_back_row" />
+
+    <TextView
+        android:id="@+id/staticTextPartecipanti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"android:fontFamily="@font/opensans_bolditalic"
+        android:layout_marginTop="16dp"
+        android:text="Partecipanti"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backImageCartSheet" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recViewPartecipanti"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/staticTextPartecipanti" />
+
+    <Button
+        android:id="@+id/shereCartButton"
+
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="-6dp"
+        android:layout_marginBottom="-6dp"
+        android:background="@drawable/shape_button"
+        android:fontFamily="@font/opensans_bolditalic"
+        android:gravity="center_vertical"
+        android:text="Invita"
+
+        android:textAllCaps="false"
+        android:textSize="11dp"
+        app:icon="?attr/actionModeShareDrawable"
+        app:layout_constraintBottom_toBottomOf="@+id/staticTextPartecipanti"
+        app:layout_constraintTop_toTopOf="@+id/staticTextPartecipanti"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="294dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/recViewCarrelliProdotti"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recViewPartecipanti" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
