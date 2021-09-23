@@ -16,6 +16,7 @@ import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 
+import it.ciper.home.viewCarrelli.cartSheet.CreateCartSheet;
 import it.ciper.json.DividerItemDecorationCiper;
 import it.ciper.listeners.carrello.CreateNewCart;
 import it.ciper.listeners.carrello.ModifyButtonCart;
@@ -79,10 +80,20 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
                 listener.setContextAndActivity(main,activity,dataCenter,carrelliAPI.get(posizione));
                 holder.modCartButton.setOnClickListener(listener);
 
+                CreateCartSheet createCartSheet = new CreateCartSheet();
+                createCartSheet.setContext(context,activity,main,dataCenter);
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        createCartSheet.setCarrelloAPI(carrelliAPI.get(posizione));
+                        createCartSheet.display();
+                    }
+                });
+
                 //TODO implements avatar for each user
                 InnerRecViewAdapter adapter = new InnerRecViewAdapter();
                 adapter.setParams(activity,context,main,dataCenter);
-                adapter.setCartItems(dataCenter, carrelliAPI.get(posizione).getCartcod());
+                adapter.setCartItems(dataCenter, carrelliAPI.get(posizione).getCartcod(),carrelliAPI.get(posizione));
                 holder.titoloCarrelloTextView.setText(carrelliAPI.get(posizione).getTitolo());
                 holder.shopsListRec.setAdapter(adapter);
                 holder.shopsListRec.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
@@ -125,7 +136,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
             modCartButton = itemView.findViewById(R.id.modCart);
             shopsListRec = itemView.findViewById(R.id.shopsListProductSheet);
             this.itemView = itemView;
-            this.parent = itemView.findViewById(R.id.parent);
+            this.parent = itemView.findViewById(R.id.carrelloHome);
         }
     }
 

@@ -30,9 +30,12 @@ public class Carrello extends CarrelloAPI{
         this.titolo = carrelloAPI.getTitolo();
     }
 
-    void upDateCartItems(){
+    public void upDateCartItems(){
         cartItems = new TreeMap<>();
-        CarrelliInterfaceApi.getCartSellers(dataCenter.getApiKey(), carrelloAPI).stream()
+        List<ShopAPI> shops = CarrelliInterfaceApi.getCartSellers(dataCenter.getApiKey(), carrelloAPI);
+        if (shops==null || shops.size()==0)
+            return;
+        shops.stream()
                 .forEach(s->cartItems.put(s,new LinkedList<>()));
 
         cartItems.keySet().stream()

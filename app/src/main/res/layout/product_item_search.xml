@@ -15,7 +15,7 @@
         android:layout_marginStart="16dp"
         android:contentDescription="@string/titolo_carrello"
         android:fontFamily="@font/opensans_bolditalic"
-        android:text="nome del negozio"
+        android:text="nome del prodotto"
         android:textColor="@color/ciperDarkPurpleSimil"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"

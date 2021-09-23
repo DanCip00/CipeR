@@ -20,7 +20,9 @@ import it.ciper.MainActivity;
 import it.ciper.R;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.data.DataCenter;
+import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.shop.ShopCartInfoAPI;
+import it.ciper.home.viewCarrelli.cartSheet.CreateCartSheet;
 import it.ciper.home.viewSearch.CreationTreahSearch;
 
 public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapter.ViewHolder> {
@@ -31,6 +33,7 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
     protected Context context;
     protected MainActivity mainActivity;
     protected DataCenter dataCenter;
+    protected CarrelloAPI carrelloAPI;
 
 
     public void setParams(Activity activity, Context context, MainActivity mainActivity, DataCenter dataCenter){
@@ -39,9 +42,11 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
         this.mainActivity = mainActivity;
         this.dataCenter = dataCenter;
     }
-    void setCartItems(DataCenter dataCenter, String cartCod) {
+    void setCartItems(DataCenter dataCenter, String cartCod, CarrelloAPI carrelloAPI) {
         items = CarrelliInterfaceApi.getCartSellersInfoList(dataCenter.getApiKey(), cartCod);
+        this.carrelloAPI =carrelloAPI;
         this.dataCenter=dataCenter;
+        notifyDataSetChanged();
     }
 
 
@@ -103,6 +108,16 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
             shopName = itemView.findViewById(R.id.productNameSearch);
             numeroOggettiTextView = itemView.findViewById(R.id.numeroOggetti);
             this.itemView = itemView;
+
+            CreateCartSheet createCartSheet = new CreateCartSheet();
+            createCartSheet.setContext(context,activity,mainActivity,dataCenter);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createCartSheet.setCarrelloAPI(carrelloAPI);
+                    createCartSheet.display();
+                }
+            });
         }
     }
     public class ViewHolderAddProd extends InnerRecViewAdapter.ViewHolder{

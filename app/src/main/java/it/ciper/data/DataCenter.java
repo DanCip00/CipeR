@@ -186,8 +186,11 @@ public class DataCenter {
     }
 
     public Carrello getCarrello(CarrelloAPI carrelloAPI){
-        if (carts.containsKey(carrelloAPI.getCartcod()))
+        if (carts.containsKey(carrelloAPI.getCartcod())) {
+            carts.get(carrelloAPI.getCartcod()).upDateTitolo();
+            carts.get(carrelloAPI.getCartcod()).upDateCartItems();
             return carts.get(carrelloAPI.getCartcod());
+        }
         upDateCartsInfo();
         Carrello cart = new Carrello(this, carrelloAPI);
         carts.put(cart.getCartcod(), cart);

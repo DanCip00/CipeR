@@ -27,6 +27,8 @@
         android:layout_width="40dp"
         android:layout_height="0dp"
         android:contentDescription="@string/logo_description"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -416,7 +416,7 @@ public interface CarrelliInterfaceApi {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n" +
                     "    \"apiKey\" : \""+apiKey+"\",\n" +
-                    "    \"cartCod\": \""+cartCod+"\"\n" +
+                    "    \"cartCod\": \""+cartCod+"\",\n" +
                     "    \"sellerCod\": \""+sellerCod+"\"\n" +
                     "}");
             Request request = new Request.Builder()
