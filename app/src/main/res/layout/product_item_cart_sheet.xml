@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.73" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.90" />
+        app:layout_constraintGuide_percent="0.88" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startPrice54"
@@ -32,13 +32,13 @@
         android:id="@+id/productNameCartSheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/titolo_carrello"
         android:fontFamily="@font/opensans_bolditalic"
         android:text="nome del prodotto"
         android:textColor="@color/ciperDarkPurpleSimil"
-        android:textSize="15sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/numeroOggettiCartSheet"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
         android:text="143,55€"
         android:textAlignment="center"
         android:textColor="@color/ciperDarkPurpleSimil"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
