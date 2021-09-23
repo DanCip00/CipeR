@@ -55,8 +55,6 @@ public class CreateCartSheet implements View.OnClickListener {
                 .inflate(R.layout.show_carrello,(ConstraintLayout)activity.findViewById(R.id.bottomSheetContainer));
         bottomSheetDialog.setContentView(bottomSheetView);
 
-        //Update
-        carrello.getCartItems();
         ((TextView)bottomSheetDialog.findViewById(R.id.cartNameTextViewCartSheet)).setText(carrello.getTitolo());
         Button condividi = bottomSheetDialog.findViewById(R.id.shereCartButton);
         condividi.setOnClickListener(new View.OnClickListener() {
