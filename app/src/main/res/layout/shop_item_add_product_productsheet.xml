@@ -43,12 +43,13 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/shape_button"
         android:backgroundTint="@color/ciperDarkPurpleSimil"
-        android:textSize="8sp"
-        android:paddingTop="16dp"
-        app:icon="@drawable/ic_shopping_add_prod"
-        app:iconGravity="textTop"
         android:gravity="bottom"
+        android:paddingTop="16dp"
+        android:textSize="8sp"
+        android:visibility="gone"
+        app:icon="@drawable/ic_shopping_add_prod"
 
+        app:iconGravity="textTop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent"
@@ -65,14 +66,15 @@
         android:textSize="10sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/newPriceDoveConviene"
-        app:layout_constraintEnd_toStartOf="@+id/startPrice" />
+        app:layout_constraintEnd_toStartOf="@+id/startPrice"
+        app:layout_constraintStart_toStartOf="@+id/startPrice" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.89" />
 
     <TextView
         android:id="@+id/newPriceDoveConviene"
@@ -81,11 +83,11 @@
         android:text="143,55€"
         android:textAlignment="center"
         android:textColor="@color/ciperDarkPurpleSimil"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addToCartDoveConviene"
-        app:layout_constraintStart_toStartOf="@+id/startPrice"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -93,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.67" />
+        app:layout_constraintGuide_percent="0.74" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

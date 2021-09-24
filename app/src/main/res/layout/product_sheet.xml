@@ -185,6 +185,8 @@
                 android:id="@+id/doveConvieneRecView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="250dp"
                 android:background="@drawable/shape_dove_conviene_recycler"
                 app:layout_constraintBottom_toBottomOf="parent"

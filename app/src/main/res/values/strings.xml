@@ -9,7 +9,7 @@
     <string name="start_button">Start</string>
     <string name="mod_button">Modifica</string>
     <string name="static_text_oggetti">Oggetti</string>
-    <string name="static_text_aggiungi_al_carrello">Aggiungi al carrello</string>
+    <string name="static_text_aggiungi_al_carrello">Aggiungi a questo negozio</string>
     <string name="static_text_i_tuoi_carrelli">I tuoi carrelli</string>
     <string name="static_text_dove_conviene">Dove conviene qui vicino</string>
     <string name="crea_button">Crea</string>

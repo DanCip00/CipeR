@@ -90,7 +90,7 @@ public class InnerRecViewProdAdapter extends RecyclerView.Adapter<InnerRecViewPr
 
         AddToCart addToCart = new AddToCart();
         addToCart.setContextAndActivity(context,activity,main,dataCenter,cart,pap);
-        holder.addButton.setOnClickListener(addToCart);
+        holder.itemView.setOnClickListener(addToCart);
 
     }
 

@@ -1,5 +1,7 @@
 package it.ciper.home.viewProdotto;
 
+import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +25,7 @@ import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.home.viewProdotto.carrelliProductSheet.RecViewProductAdapter;
 import it.ciper.home.viewProdotto.doveConviene.RecViewDoveConviene;
+import it.ciper.json.DividerItemDecorationCiper;
 
 
 public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnClickListener {
@@ -116,6 +119,8 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         }else {
             doveConviene.setAdapter(recViewDoveConvieneAdapter);
             doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            DividerItemDecorationCiper itemDecor = new DividerItemDecorationCiper(context, HORIZONTAL);
+            doveConviene.addItemDecoration(itemDecor);
         }
         bottomSheetDialog.show();
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

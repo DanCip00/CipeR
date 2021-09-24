@@ -44,6 +44,7 @@
         android:backgroundTint="@color/ciperDarkPurpleSimil"
         android:paddingTop="11dp"
         android:textSize="8sp"
+        android:visibility="gone"
         app:icon="@drawable/ic_shopping_cart_white"
         app:iconGravity="textTop"
         app:iconPadding="3dp"
@@ -63,15 +64,15 @@
         android:textSize="11sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/newPriceDoveConviene"
-        app:layout_constraintEnd_toStartOf="@+id/startPrice2" />
+        app:layout_constraintEnd_toStartOf="@+id/startPrice2"
+        app:layout_constraintStart_toStartOf="@+id/startPrice2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8
-" />
+        app:layout_constraintGuide_percent="0.89" />
 
     <TextView
         android:id="@+id/newPriceDoveConviene"
@@ -80,11 +81,11 @@
         android:text="143,55€"
         android:textAlignment="center"
         android:textColor="@color/ciperDarkPurpleSimil"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addToCartDoveConviene"
-        app:layout_constraintStart_toStartOf="@+id/startPrice2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -115,14 +116,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.67" />
+        app:layout_constraintGuide_percent="0.74" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.62" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

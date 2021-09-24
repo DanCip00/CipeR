@@ -11,7 +11,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,9 +26,37 @@
             android:textColor="@color/ciperDarkPurpleSimil"
             android:textSize="14sp"
             android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/shape_carello_add_cart"
+            android:fontFamily="@font/opensans_italic"
+            android:gravity="center"
+
+            android:text="Aggiungi al carrello  "
+            android:textAllCaps="false"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toBottomOf="@+id/titoloCarrelloProductSheet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/titoloCarrelloProductSheet" />
+
+        <TextView
+            android:id="@+id/staticTextAggiungiAdUnNEgoizo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_bolditalic"
+            android:text="Aggiungi ad un negozio"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@+id/titoloCarrelloProductSheet"
+            app:layout_constraintTop_toBottomOf="@+id/titoloCarrelloProductSheet" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

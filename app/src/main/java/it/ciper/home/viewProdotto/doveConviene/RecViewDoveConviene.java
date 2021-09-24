@@ -99,7 +99,7 @@ public class RecViewDoveConviene extends RecyclerView.Adapter<RecViewDoveConvien
             holder.distance.setText(Integer.valueOf((int)(metri/1000)).toString());
         AddNewShopToCart addNewShopToCart = new AddNewShopToCart();
         addNewShopToCart.setParams(activity,context, main, dataCenter, pap);
-        holder.addToCart.setOnClickListener(addNewShopToCart);
+        holder.itemView.setOnClickListener(addNewShopToCart);
     }
 
     @Override
