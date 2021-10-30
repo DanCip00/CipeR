@@ -57,7 +57,7 @@ public class RecViewAvatarAdapter extends RecyclerView.Adapter<RecViewAvatarAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position==0) {
             Glide.with(context)
-                    .load("http://192.168.1.107/ciper/media/avatars/0.png")
+                    .load("http://172.16.213.132/ciper/media/avatars/0.png")
                     .into(holder.avatar);
 
             holder.avatar.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +68,7 @@ public class RecViewAvatarAdapter extends RecyclerView.Adapter<RecViewAvatarAdap
             });
         }else{
             Glide.with(context)
-                    .load("http://192.168.1.107/ciper/media/avatars/6.png")
+                    .load("http://172.16.213.132/ciper/media/avatars/6.png")
                     .into(holder.avatar);
             holder.avatar.setOnClickListener(new View.OnClickListener() {
                 @Override

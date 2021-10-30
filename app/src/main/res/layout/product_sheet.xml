@@ -85,7 +85,7 @@
         app:srcCompat="@drawable/ic_back_row" />
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="24dp"
+                android:overScrollMode="always"
                 app:layout_constraintEnd_toStartOf="@+id/innercenterImageProductSheet"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -116,14 +117,13 @@
                 android:id="@+id/staticTextItuoiCarrelli"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-16dp"
                 android:fontFamily="@font/opensans_bold"
                 android:text="@string/static_text_i_tuoi_carrelli"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/staticTextPrezzi" />
+                app:layout_constraintTop_toBottomOf="@+id/doveConvieneRecView" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/innercenterImageProductSheet"
@@ -162,11 +162,13 @@
                 android:id="@+id/carrelliProdutSheet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                app:layout_constraintBottom_toTopOf="@+id/staticTextDoveConviene"
+                android:layout_marginBottom="250dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/staticTextItuoiCarrelli">
+                app:layout_constraintTop_toBottomOf="@+id/staticTextItuoiCarrelli"
+                app:layout_constraintVertical_bias="0.0">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -174,12 +176,13 @@
                 android:id="@+id/staticTextDoveConviene"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-16dp"
                 android:fontFamily="@font/opensans_bold"
                 android:text="@string/static_text_dove_conviene"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/carrelliProdutSheet" />
+                app:layout_constraintTop_toBottomOf="@+id/staticTextPrezzi" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/doveConvieneRecView"
@@ -187,15 +190,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginBottom="250dp"
+                android:nestedScrollingEnabled="false"
                 android:background="@drawable/shape_dove_conviene_recycler"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/staticTextDoveConviene" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

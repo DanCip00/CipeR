@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import it.ciper.MainActivity;
@@ -58,13 +60,13 @@ public class InnerRecViewCartSheet extends RecyclerView.Adapter<InnerRecViewCart
 
         holder.productName.setText(cartItem.getProductAndPriceAPI().getName());
         holder.numOggetti.setText(cartItem.getQuantity().toString());
-
+        NumberFormat formatter = new DecimalFormat("#0.00");
         if (cartItem.getProductAndPriceAPI().isOffert()){
             holder.oldPrice.setVisibility(View.VISIBLE);
-            holder.oldPrice.setText(Double.valueOf(cartItem.getQuantity()*cartItem.getProductAndPriceAPI().getPrice().getPrice()).toString()+"€");
-            holder.newPrice.setText(Double.valueOf(cartItem.getQuantity()*cartItem.getProductAndPriceAPI().getPrice().getOffertprice()).toString()+"€");
+            holder.oldPrice.setText(formatter.format(Double.valueOf(cartItem.getQuantity()*cartItem.getProductAndPriceAPI().getPrice().getPrice()))+"€");
+            holder.newPrice.setText(formatter.format(Double.valueOf(cartItem.getQuantity()*cartItem.getProductAndPriceAPI().getPrice().getOffertprice()))+"€");
         }else
-            holder.newPrice.setText(Double.valueOf(cartItem.getQuantity()*cartItem.getProductAndPriceAPI().getPrice().getPrice()).toString()+"€");
+            holder.newPrice.setText(formatter.format(Double.valueOf(cartItem.getQuantity()*cartItem.getProductAndPriceAPI().getPrice().getPrice()))+"€");
 
 
     }

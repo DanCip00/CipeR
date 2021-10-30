@@ -335,6 +335,7 @@ public interface CarrelliInterfaceApi {
         if (shops==null || shops.size()==0)
             return infoList;
         shops.forEach((s)-> infoList.add(getProductForSellerInfo(apiKey,cartCod,s.getSellercod())));
+        infoList.forEach(s->System.out.println("\tcart->"+cartCod+"\n\tseller->"+s.getSellerCod()+"\n\tquantity->"+s.getQuant()));
         return infoList;
     }
 

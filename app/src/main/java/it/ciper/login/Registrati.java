@@ -24,6 +24,7 @@ import java.util.Random;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
+import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.api.interfacce.UsersInterfaceApi;
 import it.ciper.data.DataCenter;
 import it.ciper.home.viewCarrelli.RecViewCarrelliAdapter;
@@ -62,7 +63,7 @@ public class Registrati implements View.OnClickListener {
         Random rn = new Random();
         int i =rn.nextInt(10);
         Glide.with(dialog.getContext())
-                .load("http://192.168.1.107/ciper/media/avatars/"+i+".png")
+                .load("http://172.16.213.132/ciper/media/avatars/"+i+".png")
                 .into((ImageView) dialog.findViewById(R.id.avatarImage));
 
 
