@@ -19,6 +19,7 @@ import java.util.List;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
+import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.Carrello;
 import it.ciper.data.dataClasses.shop.ShopAPI;
@@ -57,7 +58,7 @@ public class RecViewAvatarAdapter extends RecyclerView.Adapter<RecViewAvatarAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position==0) {
             Glide.with(context)
-                    .load("http://172.16.213.132/ciper/media/avatars/0.png")
+                    .load("http://"+ SettingsApi.server+"/ciper/media/avatars/0.png")
                     .into(holder.avatar);
 
             holder.avatar.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +69,7 @@ public class RecViewAvatarAdapter extends RecyclerView.Adapter<RecViewAvatarAdap
             });
         }else{
             Glide.with(context)
-                    .load("http://172.16.213.132/ciper/media/avatars/6.png")
+                    .load("http://"+SettingsApi.server+"/ciper/media/avatars/6.png")
                     .into(holder.avatar);
             holder.avatar.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 import it.ciper.MainActivity;
 import it.ciper.R;

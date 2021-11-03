@@ -63,7 +63,7 @@ public class Registrati implements View.OnClickListener {
         Random rn = new Random();
         int i =rn.nextInt(10);
         Glide.with(dialog.getContext())
-                .load("http://172.16.213.132/ciper/media/avatars/"+i+".png")
+                .load("http://"+ SettingsApi.server +"/ciper/media/avatars/"+i+".png")
                 .into((ImageView) dialog.findViewById(R.id.avatarImage));
 
 

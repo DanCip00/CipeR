@@ -273,7 +273,8 @@ public class DataCenter {
         List<ProductAPI> listSec = ProductInterfaceApi.searchProduct(apiKey,"%"+buf,SIZE_LIMIT);
         if (list!=null)
             if (listSec!=null) {
-                list.addAll(listSec);
+                List<ProductAPI> finalList = list;
+                list.addAll(listSec.stream().filter((p)-> finalList.stream().anyMatch(x->x.getProductcod().compareTo(p.getProductcod())!=0)).collect(Collectors.toList()));
                 return list;
             }else
                 return list;
