@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showProgressBarTimer(){
         findViewById(R.id.progressBar2).setVisibility(View.VISIBLE);
-        findViewById(R.id.progressBar2).setElevation(100);
+        findViewById(R.id.progressBar2).setElevation(2000);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

@@ -84,13 +84,7 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
                 .inflate(R.layout.product_sheet, (ConstraintLayout) activity.findViewById(R.id.bottomSheetContainer));
         bottomSheetDialog.setContentView(bottomSheetView);
 
-        bottomSheetDialog.findViewById(R.id.backImageProductSheet).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bottomSheetDialog.hide();
-            }
-        });
-
+        bottomSheetDialog.show();
         productImage = bottomSheetDialog.findViewById(R.id.productImageProductSheet);
 
         Glide.with(activity)
@@ -103,29 +97,48 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         ((TextView) bottomSheetDialog.findViewById(R.id.productNameProductSheet)).setText(productAPI.getName());
         ((TextView) bottomSheetDialog.findViewById(R.id.produttoreTextProductSheet)).setText(productAPI.getProducer());
 
-        carrelliProdotto = bottomSheetDialog.findViewById(R.id.carrelliProdutSheet);
-        carrelliProductAdapter = new RecViewProductAdapter();
-        carrelliProductAdapter.setDataCenter(dataCenter, productAPI);
-        carrelliProductAdapter.setContext(context, activity, mainActivity);
-        carrelliProdotto.setAdapter(carrelliProductAdapter);
-        carrelliProdotto.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                carrelliProdotto = bottomSheetDialog.findViewById(R.id.carrelliProdutSheet);
+                carrelliProductAdapter = new RecViewProductAdapter();
+                carrelliProductAdapter.setDataCenter(dataCenter, productAPI);
+                carrelliProductAdapter.setContext(context, activity, mainActivity);
+                carrelliProdotto.setAdapter(carrelliProductAdapter);
+                carrelliProdotto.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            }
+        });
 
         if (carrelliProductAdapter.getEmpty())
             bottomSheetDialog.findViewById(R.id.staticTextItuoiCarrelli).setVisibility(View.GONE);
 
-        doveConviene = bottomSheetDialog.findViewById(R.id.doveConvieneRecView);
-        recViewDoveConvieneAdapter = new RecViewDoveConviene();
-        recViewDoveConvieneAdapter.setContext(context, activity, mainActivity, dataCenter, productAPI);
-        if (recViewDoveConvieneAdapter.getEmpty()) {
-            doveConviene.setVisibility(View.GONE);
-            bottomSheetDialog.findViewById(R.id.staticTextDoveConviene).setVisibility(View.GONE);
-        } else {
-            doveConviene.setAdapter(recViewDoveConvieneAdapter);
-            doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-            DividerItemDecorationCiper itemDecor = new DividerItemDecorationCiper(context, HORIZONTAL);
-            doveConviene.addItemDecoration(itemDecor);
-        }
-        bottomSheetDialog.show();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                doveConviene = bottomSheetDialog.findViewById(R.id.doveConvieneRecView);
+                recViewDoveConvieneAdapter = new RecViewDoveConviene();
+                recViewDoveConvieneAdapter.setContext(context, activity, mainActivity, dataCenter, productAPI);
+                if (recViewDoveConvieneAdapter.getEmpty()) {
+                    doveConviene.setVisibility(View.GONE);
+                    bottomSheetDialog.findViewById(R.id.staticTextDoveConviene).setVisibility(View.GONE);
+                } else {
+                    doveConviene.setAdapter(recViewDoveConvieneAdapter);
+                    doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+                    DividerItemDecorationCiper itemDecor = new DividerItemDecorationCiper(context, HORIZONTAL);
+                    doveConviene.addItemDecoration(itemDecor);
+                }
+            }
+        });
+                //Chiusura
+        bottomSheetDialog.findViewById(R.id.backImageProductSheet).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetDialog.hide();
+            }
+        });
+
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {

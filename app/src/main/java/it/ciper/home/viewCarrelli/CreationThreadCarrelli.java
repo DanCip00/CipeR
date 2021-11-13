@@ -48,6 +48,7 @@ public class CreationThreadCarrelli implements Callable<Boolean> {
 
         if (dataCenter.getAllCarrelliAPI().size()!=0)
             nessunCarrello.setVisibility(View.GONE);
+        System.out.println("FINITO DI CARICARE I CARRELLI !!!\n");
         return true;
     }
 
