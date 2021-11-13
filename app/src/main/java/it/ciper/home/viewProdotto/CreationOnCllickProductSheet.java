@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Callable;
 
 import it.ciper.MainActivity;
@@ -75,11 +77,11 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
 
     }
 
-    public void display(){
-
+    public void display() {
+        mainActivity.showProgressBar();
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyleDialogTheme);
         View bottomSheetView = LayoutInflater.from(context)
-                .inflate(R.layout.product_sheet,(ConstraintLayout)activity.findViewById(R.id.bottomSheetContainer));
+                .inflate(R.layout.product_sheet, (ConstraintLayout) activity.findViewById(R.id.bottomSheetContainer));
         bottomSheetDialog.setContentView(bottomSheetView);
 
         bottomSheetDialog.findViewById(R.id.backImageProductSheet).setOnClickListener(new View.OnClickListener() {
@@ -98,13 +100,13 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
         description = bottomSheetDialog.findViewById(R.id.descriptionText);
         description.setText(productAPI.getDescription());
 
-        ((TextView)bottomSheetDialog.findViewById(R.id.productNameProductSheet)).setText(productAPI.getName());
-        ((TextView)bottomSheetDialog.findViewById(R.id.produttoreTextProductSheet)).setText(productAPI.getProducer());
+        ((TextView) bottomSheetDialog.findViewById(R.id.productNameProductSheet)).setText(productAPI.getName());
+        ((TextView) bottomSheetDialog.findViewById(R.id.produttoreTextProductSheet)).setText(productAPI.getProducer());
 
         carrelliProdotto = bottomSheetDialog.findViewById(R.id.carrelliProdutSheet);
         carrelliProductAdapter = new RecViewProductAdapter();
-        carrelliProductAdapter.setDataCenter(dataCenter,productAPI);
-        carrelliProductAdapter.setContext(context,activity,mainActivity);
+        carrelliProductAdapter.setDataCenter(dataCenter, productAPI);
+        carrelliProductAdapter.setContext(context, activity, mainActivity);
         carrelliProdotto.setAdapter(carrelliProductAdapter);
         carrelliProdotto.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
@@ -113,11 +115,11 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
 
         doveConviene = bottomSheetDialog.findViewById(R.id.doveConvieneRecView);
         recViewDoveConvieneAdapter = new RecViewDoveConviene();
-        recViewDoveConvieneAdapter.setContext(context,activity,mainActivity,dataCenter,productAPI);
+        recViewDoveConvieneAdapter.setContext(context, activity, mainActivity, dataCenter, productAPI);
         if (recViewDoveConvieneAdapter.getEmpty()) {
             doveConviene.setVisibility(View.GONE);
             bottomSheetDialog.findViewById(R.id.staticTextDoveConviene).setVisibility(View.GONE);
-        }else {
+        } else {
             doveConviene.setAdapter(recViewDoveConvieneAdapter);
             doveConviene.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
             DividerItemDecorationCiper itemDecor = new DividerItemDecorationCiper(context, HORIZONTAL);
@@ -130,8 +132,14 @@ public class CreationOnCllickProductSheet implements Callable<Boolean>, View.OnC
                 freeMemo();
             }
         });
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mainActivity.hideProgressBar();
+            }
+        }, 600);
     }
-
     private void freeMemo(){
         productImage.setImageBitmap(null);
         context =null;

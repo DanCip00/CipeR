@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -125,6 +127,27 @@ public class MainActivity extends AppCompatActivity {
     }
     public void updateCart(){
         creationThreadCarrelli.updateInteface();
+    }
+
+    public void showProgressBar(){
+        findViewById(R.id.progressBar2).setVisibility(View.VISIBLE);
+
+        findViewById(R.id.progressBar2).setElevation(100);
+    }
+
+    public void showProgressBarTimer(){
+        findViewById(R.id.progressBar2).setVisibility(View.VISIBLE);
+        findViewById(R.id.progressBar2).setElevation(100);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                hideProgressBar();
+            }
+        }, 600);
+    }
+    public void hideProgressBar(){
+        findViewById(R.id.progressBar2).setVisibility(View.INVISIBLE);
     }
 
 }
