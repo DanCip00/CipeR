@@ -82,10 +82,11 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
 
                 CreateCartSheet createCartSheet = new CreateCartSheet();
                 createCartSheet.setContext(context,activity,main,dataCenter);
+                createCartSheet.setCarrelloAPI(carrelliAPI.get(posizione));
+                createCartSheet.load();
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        createCartSheet.setCarrelloAPI(carrelliAPI.get(posizione));
                         createCartSheet.display();
                     }
                 });

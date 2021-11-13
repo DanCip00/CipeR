@@ -111,10 +111,11 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
 
             CreateCartSheet createCartSheet = new CreateCartSheet();
             createCartSheet.setContext(context,activity,mainActivity,dataCenter);
+            createCartSheet.setCarrelloAPI(carrelloAPI);
+            createCartSheet.load();
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    createCartSheet.setCarrelloAPI(carrelloAPI);
                     createCartSheet.display();
                 }
             });

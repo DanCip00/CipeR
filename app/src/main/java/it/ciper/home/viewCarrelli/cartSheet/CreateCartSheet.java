@@ -31,6 +31,7 @@ public class CreateCartSheet implements View.OnClickListener {
     private MainActivity main;
     protected CarrelloAPI carrelloAPI;
     protected Carrello carrello;
+    protected BottomSheetDialog bottomSheetDialog;
 
     public  void setContext(Context context, Activity activity, MainActivity main, DataCenter dataCenter){
         this.context= context;
@@ -49,8 +50,8 @@ public class CreateCartSheet implements View.OnClickListener {
         display();
     }
 
-    public void display(){
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyleDialogTheme);
+    public void load(){
+        bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyleDialogTheme);
         View bottomSheetView = LayoutInflater.from(context)
                 .inflate(R.layout.show_carrello,(ConstraintLayout)activity.findViewById(R.id.bottomSheetContainer));
         bottomSheetDialog.setContentView(bottomSheetView);
@@ -85,9 +86,14 @@ public class CreateCartSheet implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.hide();
-                main.updateCart();
+                //  TODO implememnts this command in the modify button
+//                main.updateCart();
             }
         });
+    }
+
+    public void display(){
+
         bottomSheetDialog.show();
     }
 }
