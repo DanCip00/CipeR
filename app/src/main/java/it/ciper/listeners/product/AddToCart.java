@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.FileUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -19,11 +20,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.api.interfacce.ProductInterfaceApi;
+import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
@@ -80,8 +85,8 @@ public class AddToCart implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 ProductInterfaceApi.addToSherCart(dataCenter.getApiKey(),carrelloAPI.getCartcod(),productAndPriceAPI,numberPicker.getValue());
-                main.updateCart();
                 dialog.hide();
+                main.updateCart();
             }
         });
         dialog.show();

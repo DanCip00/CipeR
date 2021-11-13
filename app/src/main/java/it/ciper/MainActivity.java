@@ -126,7 +126,9 @@ public class MainActivity extends AppCompatActivity {
         System.gc();
     }
     public void updateCart(){
+        showProgressBar();
         creationThreadCarrelli.updateInteface();
+        hideProgressBar();
     }
 
     public void showProgressBar(){

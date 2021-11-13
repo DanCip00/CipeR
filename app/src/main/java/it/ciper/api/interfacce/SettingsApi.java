@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 public interface SettingsApi {
     String server= "35.195.221.29";
     String serverDomain = "http://"+server+":5000";
-    ExecutorService executor = Executors.newWorkStealingPool();
+    ExecutorService executor = Executors.newFixedThreadPool(5);
     String clientToken = "f0a05aabd049f6cb62f425bc793534fe24161de60199a6295944a9f2f52b8ff6";
 
     static String listToString(List<String> list){
