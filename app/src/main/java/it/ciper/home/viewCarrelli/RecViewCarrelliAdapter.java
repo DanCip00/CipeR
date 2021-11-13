@@ -4,6 +4,7 @@ import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import it.ciper.MainActivity;
 import it.ciper.R;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
+import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 
@@ -20,6 +22,7 @@ import it.ciper.home.viewCarrelli.cartSheet.CreateCartSheet;
 import it.ciper.json.DividerItemDecorationCiper;
 import it.ciper.listeners.carrello.CreateNewCart;
 import it.ciper.listeners.carrello.ModifyButtonCart;
+import kotlin.jvm.internal.Ref;
 
 
 import androidx.annotation.NonNull;
@@ -27,7 +30,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.api.Api;
+
 import java.util.List;
+import java.util.TreeMap;
 
 public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelliAdapter.ViewHolder> {
 
@@ -38,6 +44,10 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     private Activity activity;
     private MainActivity main;
 
+    //Ottimizzazione caricamento in background
+    private TreeMap<Integer,CreateCartSheet> createCartSheetTreeMap = new TreeMap<>();
+
+
     public  void setContext(Context context, Activity activity, MainActivity main){
         this.context= context;
         this.activity =activity;
@@ -47,9 +57,26 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     public void setCarrelli(DataCenter dataCenter) {
         this.carrelliAPI = dataCenter.getAllCarrelliAPI();
         this.dataCenter = dataCenter;
+        createCartSheetTreeMap.clear();
+
+        //Loading in backgroud      CARTSHEET
+        for (int i=0;i<carrelliAPI.size();i++){
+            CreateCartSheet createCartSheet = new CreateCartSheet();
+            createCartSheet.setContext(context,activity,main,dataCenter);
+            createCartSheet.setCarrelloAPI(carrelliAPI.get(i));
+            createCartSheetTreeMap.put(i, createCartSheet);
+        }
+        SettingsApi.executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                for (int i=0;i<carrelliAPI.size();i++) {
+                    createCartSheetTreeMap.get(i).load();
+                }
+            }
+        });
+
         notifyDataSetChanged();
     }
-
 
 
     @NonNull
@@ -80,14 +107,10 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
                 listener.setContextAndActivity(main,activity,dataCenter,carrelliAPI.get(posizione));
                 holder.modCartButton.setOnClickListener(listener);
 
-                CreateCartSheet createCartSheet = new CreateCartSheet();
-                createCartSheet.setContext(context,activity,main,dataCenter);
-                createCartSheet.setCarrelloAPI(carrelliAPI.get(posizione));
-                createCartSheet.load();
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        createCartSheet.display();
+                        createCartSheetTreeMap.get(posizione).display();
                     }
                 });
 
