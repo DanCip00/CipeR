@@ -39,8 +39,8 @@ public class CreationThreadCarrelli implements Callable<Boolean> {
         //Gestione CARRELLI
 
         adapterCarrelli = new RecViewCarrelliAdapter();
-        adapterCarrelli.setCarrelli(dataCenter);
         adapterCarrelli.setContext(context,activity,mainActivity);
+        adapterCarrelli.setCarrelli(dataCenter);
         nessunCarrello = activity.findViewById(R.id.nessunCarrello);
         recyclerViewCarrelli = activity.findViewById(R.id.carrelli);
         recyclerViewCarrelli.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));

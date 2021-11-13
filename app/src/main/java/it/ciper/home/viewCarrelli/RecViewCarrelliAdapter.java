@@ -43,6 +43,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
     private DataCenter dataCenter;
     private Activity activity;
     private MainActivity main;
+    boolean fisrtLoad=false;
 
     //Ottimizzazione caricamento in background
     private TreeMap<Integer,CreateCartSheet> createCartSheetTreeMap = new TreeMap<>();
@@ -66,16 +67,24 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
             createCartSheet.setCarrelloAPI(carrelliAPI.get(i));
             createCartSheetTreeMap.put(i, createCartSheet);
         }
-        SettingsApi.executor.submit(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                for (int i=0;i<carrelliAPI.size();i++) {
+                for (int i = 0; i < carrelliAPI.size(); i++) {
                     createCartSheetTreeMap.get(i).load();
                 }
             }
         });
-
         notifyDataSetChanged();
+    }
+    /**
+    Funzione creata per essese chiamata solo nella fase di boot, persfruttare il parallelsimo.
+    Per ogni altro aggiornamento (update dei carrelli) il ciclo di load sarà svolto all'intenro di questa classe.
+     */
+    public void bootLoad(){
+        for (int i = 0; i < carrelliAPI.size(); i++) {
+            createCartSheetTreeMap.get(i).load();
+        }
     }
 
 
@@ -117,7 +126,7 @@ public class RecViewCarrelliAdapter extends RecyclerView.Adapter<RecViewCarrelli
                 //TODO implements avatar for each user
                 InnerRecViewAdapter adapter = new InnerRecViewAdapter();
                 adapter.setParams(activity,context,main,dataCenter);
-                adapter.setCartItems(dataCenter, carrelliAPI.get(posizione).getCartcod(),carrelliAPI.get(posizione));
+                adapter.setCartItems(dataCenter, carrelliAPI.get(posizione).getCartcod(),carrelliAPI.get(posizione),createCartSheetTreeMap.get(posizione));
                 holder.titoloCarrelloTextView.setText(carrelliAPI.get(posizione).getTitolo());
                 holder.shopsListRec.setAdapter(adapter);
                 holder.shopsListRec.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));

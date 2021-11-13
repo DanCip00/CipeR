@@ -102,8 +102,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             Toast.makeText(this,"E' necessaria una connessione internet",Toast.LENGTH_LONG).show();
             e.printStackTrace();
+            return;
         } catch (InterruptedException e) {
             e.printStackTrace();
+            return;
         }
 
         findViewById(R.id.search_bar).setOnClickListener(new View.OnClickListener() {
@@ -114,11 +116,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         //Navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
-
 
 
     }

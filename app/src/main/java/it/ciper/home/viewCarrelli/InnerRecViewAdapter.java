@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+import java.util.TreeMap;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
@@ -35,6 +36,8 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
     protected DataCenter dataCenter;
     protected CarrelloAPI carrelloAPI;
 
+    protected CreateCartSheet createCartSheet = null;
+
 
     public void setParams(Activity activity, Context context, MainActivity mainActivity, DataCenter dataCenter){
         this.activity = activity;
@@ -42,10 +45,11 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
         this.mainActivity = mainActivity;
         this.dataCenter = dataCenter;
     }
-    void setCartItems(DataCenter dataCenter, String cartCod, CarrelloAPI carrelloAPI) {
+    void setCartItems(DataCenter dataCenter, String cartCod, CarrelloAPI carrelloAPI, CreateCartSheet createCartSheet) {
         items = CarrelliInterfaceApi.getCartSellersInfoList(dataCenter.getApiKey(), cartCod);
         this.carrelloAPI =carrelloAPI;
         this.dataCenter=dataCenter;
+        this.createCartSheet = createCartSheet;
         notifyDataSetChanged();
     }
 
@@ -109,10 +113,6 @@ public class InnerRecViewAdapter extends RecyclerView.Adapter<InnerRecViewAdapte
             numeroOggettiTextView = itemView.findViewById(R.id.numeroOggetti);
             this.itemView = itemView;
 
-            CreateCartSheet createCartSheet = new CreateCartSheet();
-            createCartSheet.setContext(context,activity,mainActivity,dataCenter);
-            createCartSheet.setCarrelloAPI(carrelloAPI);
-            createCartSheet.load();
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

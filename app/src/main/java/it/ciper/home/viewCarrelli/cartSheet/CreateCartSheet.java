@@ -2,6 +2,7 @@ package it.ciper.home.viewCarrelli.cartSheet;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +52,7 @@ public class CreateCartSheet implements View.OnClickListener {
     }
 
     public void load(){
+
         bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetStyleDialogTheme);
         View bottomSheetView = LayoutInflater.from(context)
                 .inflate(R.layout.show_carrello,(ConstraintLayout)activity.findViewById(R.id.bottomSheetContainer));
