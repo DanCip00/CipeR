@@ -3,13 +3,16 @@ package it.ciper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +27,7 @@ import it.ciper.home.viewOfferte.CreationThreadOfferte;
 import it.ciper.home.viewSearch.CreationTreahSearch;
 import it.ciper.login.LoginActivity;
 import it.ciper.position.PositionHandler;
+import it.ciper.userSettings.UserSetting;
 
 public class MainActivity extends AppCompatActivity {
     //API
@@ -118,7 +122,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.homeItemMenu:
+                        break;
+                    case R.id.accountItemMenu:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.ConstraintLayoutMain ,new UserSetting()).commit();
+                }
 
+                return false;
+            }
+        });
 
     }
     private void setParamsSearch(){

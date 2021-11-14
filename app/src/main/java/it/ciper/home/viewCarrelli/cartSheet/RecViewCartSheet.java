@@ -1,5 +1,7 @@
 package it.ciper.home.viewCarrelli.cartSheet;
 
+import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import it.ciper.data.dataClasses.carrello.Carrello;
 import it.ciper.data.dataClasses.carrello.CartItem;
 import it.ciper.data.dataClasses.shop.ShopAPI;
 import it.ciper.home.viewCarrelli.RecViewCarrelliAdapter;
+import it.ciper.json.DividerItemDecorationCiper;
 
 public class RecViewCartSheet extends RecyclerView.Adapter<RecViewCartSheet.ViewHolder> {
 
@@ -96,6 +99,7 @@ public class RecViewCartSheet extends RecyclerView.Adapter<RecViewCartSheet.View
         adapter.setContext(context,activity,main);
         adapter.setParams(carrello,shop);
         holder.productsRecView.setAdapter(adapter);
+        holder.productsRecView.addItemDecoration(new DividerItemDecorationCiper(context, HORIZONTAL));
         holder.productsRecView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
     }
 

@@ -12,7 +12,7 @@
         android:id="@+id/productNameSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="5dp"
         android:contentDescription="@string/titolo_carrello"
         android:fontFamily="@font/opensans_bolditalic"
         android:text="nome del prodotto"
@@ -20,7 +20,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/startPrice2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addProdSearch"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.483" />
 
@@ -41,15 +41,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8
-" />
+        app:layout_constraintGuide_percent="0.84" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startPrice2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.67" />
+        app:layout_constraintGuide_percent="0.75" />
+
+    <ImageView
+        android:id="@+id/addProdSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:tint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/productNameSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/productNameSearch"
+        app:srcCompat="@drawable/ic_shopping_add_prod" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

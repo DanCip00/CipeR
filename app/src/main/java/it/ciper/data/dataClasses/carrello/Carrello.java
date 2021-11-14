@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.api.interfacce.ProductInterfaceApi;
 import it.ciper.data.DataCenter;
+import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
 import it.ciper.data.dataClasses.shop.ShopCartInfoAPI;
 
@@ -74,5 +75,21 @@ public class Carrello extends CarrelloAPI{
 
     public TreeMap<ShopAPI, ShopCartInfoAPI> getCartShopInfo() {
         return cartShopInfo;
+    }
+
+    public int isPresentPrdoductAndPriceAPI(ProductAndPriceAPI productAndPriceAPI){
+        ShopAPI shop = dataCenter.getShopAPI(productAndPriceAPI.getPrice().getSellercod());
+
+        if (!cartItems.containsKey(shop))
+            return 0;
+        List<CartItem> list = cartItems.get(shop);
+        if (!list.stream().anyMatch(cartItem->{
+            return cartItem.getProductcod().compareTo(productAndPriceAPI.getProductcod())==0;
+            }))
+            return 0;
+
+        CartItem item = list.stream().filter(cartItem->cartItem.getProductcod().compareTo(productAndPriceAPI.getProductcod())==0)
+                .findFirst().get();
+        return item.getQuantity();
     }
 }

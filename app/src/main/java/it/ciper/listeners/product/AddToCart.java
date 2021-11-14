@@ -5,30 +5,23 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.FileUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.ActionBarOverlayLayout;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
-import it.ciper.api.interfacce.CarrelliInterfaceApi;
 import it.ciper.api.interfacce.ProductInterfaceApi;
-import it.ciper.api.interfacce.SettingsApi;
 import it.ciper.data.DataCenter;
 import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
@@ -71,6 +64,17 @@ public class AddToCart implements View.OnClickListener {
                 .load(productAndPriceAPI.getSrcimage())
                 .into((ImageView) dialog.findViewById(R.id.productImageAddProd));
 
+        TextView avviso = dialog.findViewById(R.id.textPopUpAddProd);
+        Integer numAlreadyInsert;
+        numAlreadyInsert = dataCenter.getCarrello(carrelloAPI.getCartcod())
+                .isPresentPrdoductAndPriceAPI(productAndPriceAPI);
+        if (numAlreadyInsert!=0){
+            avviso.setText("Qusto prodotto è già presente con "+numAlreadyInsert+" unità, questo numero verrà sostituito con la nuova quantità.");
+            avviso.setVisibility(View.VISIBLE);
+        }else{
+            avviso.setVisibility(View.GONE);
+        }
+
         TextView sum = dialog.findViewById(R.id.addingPricePopup);
         sum.setText((productAndPriceAPI.isOffert()?productAndPriceAPI.getPrice().getOffertprice():productAndPriceAPI.getPrice().getPrice())+"€");
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -89,6 +93,9 @@ public class AddToCart implements View.OnClickListener {
                 main.updateCart();
             }
         });
+
+
+
         dialog.show();
     }
 }

@@ -46,7 +46,9 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
 
     protected TextView searchBar;
     protected RecyclerView recyclerView;
+    protected RecyclerView recViewCategory;
     protected RecViewSearchAdapter recViewSearchAdapter;
+    protected RecViewSearchAdapter recViewCategoryAdapter;
     protected List<ProductAPI> products;
 
     @Override
@@ -78,6 +80,11 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         recyclerView.addItemDecoration(itemDecor);
         searchBar.setCursorVisible(true);
 
+        //RecView Categorie
+        recViewCategory = dialog.findViewById(R.id.recViewCategorie);
+        //TODO finire qua -> fare prima RecViewCategoryAdapter
+
+        //Barra di cicerca
         searchBar.addTextChangedListener(
                 new TextWatcher() {
                     @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
