@@ -48,7 +48,7 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
     protected RecyclerView recyclerView;
     protected RecyclerView recViewCategory;
     protected RecViewSearchAdapter recViewSearchAdapter;
-    protected RecViewSearchAdapter recViewCategoryAdapter;
+    protected RecViewCategoryAdapter recViewCategoryAdapter;
     protected List<ProductAPI> products;
 
     @Override
@@ -69,6 +69,8 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         dialog.setContentView(R.layout.popup_search_prod);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+
+        //RecView lista prodotti
         searchBar = dialog.findViewById(R.id.search_bar_popup);
         recyclerView = dialog.findViewById(R.id.recSearchProd);
         recViewSearchAdapter = new RecViewSearchAdapter();
@@ -80,11 +82,8 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
         recyclerView.addItemDecoration(itemDecor);
         searchBar.setCursorVisible(true);
 
-        //RecView Categorie
-        recViewCategory = dialog.findViewById(R.id.recViewCategorie);
-        //TODO finire qua -> fare prima RecViewCategoryAdapter
 
-        //Barra di cicerca
+        //Barra di ricerca
         searchBar.addTextChangedListener(
                 new TextWatcher() {
                     @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
@@ -122,6 +121,15 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
                 }
         );
 
+
+        //RecView Categorie
+        recViewCategory = dialog.findViewById(R.id.recViewCategorie);
+        recViewCategoryAdapter = new RecViewCategoryAdapter();
+        recViewCategoryAdapter.setParams(activity,context,mainActivity,dataCenter);
+        recViewCategory.setAdapter(recViewCategoryAdapter);
+        recViewCategory.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+
+
         dialog.findViewById(R.id.backImageSearch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +138,7 @@ public class CreationTreahSearch implements Callable<Boolean>, View.OnClickListe
                 freeMemory();
             }
         });
+
         dialog.getWindow().setLayout(-1,-1);
         dialog.show();
         if(searchBar.requestFocus()) {
