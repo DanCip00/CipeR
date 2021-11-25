@@ -58,7 +58,7 @@ public class AddToCart implements View.OnClickListener {
 
         numberPicker.setValue(1);
         numberPicker.setMaxValue(99);
-        numberPicker.setMinValue(1);
+        numberPicker.setMinValue(0);
 
         Glide.with(dialog.getContext())
                 .load(productAndPriceAPI.getSrcimage())
@@ -88,7 +88,10 @@ public class AddToCart implements View.OnClickListener {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProductInterfaceApi.addToSherCart(dataCenter.getApiKey(),carrelloAPI.getCartcod(),productAndPriceAPI,numberPicker.getValue());
+                if (numberPicker.getValue()==0)
+                    ProductInterfaceApi.remFromCart(dataCenter.getApiKey(),carrelloAPI,productAndPriceAPI);
+                else
+                    ProductInterfaceApi.addToSherCart(dataCenter.getApiKey(),carrelloAPI.getCartcod(),productAndPriceAPI,numberPicker.getValue());
                 dialog.hide();
                 main.updateCart();
             }

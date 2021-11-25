@@ -20,6 +20,7 @@ import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.PriceAPI;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
+import it.ciper.data.dataClasses.product.categories.CategoryAPI;
 import it.ciper.data.dataClasses.shop.ShopAPI;
 import it.ciper.data.dataClasses.*;
 
@@ -281,5 +282,14 @@ public class DataCenter {
         if (listSec!=null)
             return listSec;
         return new LinkedList<>();
+    }
+
+            //Category
+    protected List<CategoryAPI> allCategoties=null;
+
+    public List<CategoryAPI> getAllCategoties(){
+        if (allCategoties==null)
+            allCategoties = ProductInterfaceApi.getAllCategories(apiKey);
+        return allCategoties;
     }
 }

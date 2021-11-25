@@ -14,6 +14,7 @@ import it.ciper.data.dataClasses.carrello.CarrelloAPI;
 import it.ciper.data.dataClasses.product.PriceAPI;
 import it.ciper.data.dataClasses.product.ProductAPI;
 import it.ciper.data.dataClasses.product.ProductAndPriceAPI;
+import it.ciper.data.dataClasses.product.categories.CategoryAPI;
 import it.ciper.json.JsonManager;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -420,6 +421,87 @@ public interface ProductInterfaceApi {
             return response.body().string();
         }
     }
+                //TODO Categories
+
+    static List<CategoryAPI> getAllCategories(String apiKey){
+        String buf = null;
+        GetAllCategories getAllCategories = new GetAllCategories();
+        getAllCategories.setParams(apiKey);
+        Future<String> ris = executor.submit(getAllCategories);
+        try {
+            buf =ris.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        CategoryAPI[] categorie = JsonManager.parseJsonClass(buf,CategoryAPI[].class);
+        if (categorie.length==0)
+            return null;
+        return Arrays.stream(categorie).collect(Collectors.toList());
+    }
+
+    class GetAllCategories implements Callable<String> {
+        private String apiKey;
+
+        void setParams(String apiKey) {
+            this.apiKey = apiKey;
+        }
+        @Override
+        public String call() throws Exception {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n    \"apiKey\" : \""+apiKey+"\"\n}");
+            Request request = new Request.Builder()
+                    .url(serverDomain+"/product/getAllCategories")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+    }
 
 
+    static List<CategoryAPI> getCategories(String apiKey,String productCod){
+        String buf = null;
+        GetCategories getCategories = new GetCategories();
+        getCategories.setParams(apiKey,productCod);
+        Future<String> ris = executor.submit(getCategories);
+        try {
+            buf =ris.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        CategoryAPI[] categorie = JsonManager.parseJsonClass(buf,CategoryAPI[].class);
+        if (categorie.length==0)
+            return null;
+        return Arrays.stream(categorie).collect(Collectors.toList());
+    }
+
+    class GetCategories implements Callable<String> {
+        private String apiKey, productCod;
+
+        void setParams(String apiKey, String productCod) {
+            this.apiKey = apiKey;
+            this.productCod = productCod;
+        }
+        @Override
+        public String call() throws Exception {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\n    \"apiKey\" : \""+apiKey+"\", \"productCod\" : \""+productCod+"\" }");
+            Request request = new Request.Builder()
+                    .url(serverDomain+"/product/getAllCategories")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            Response response = client.newCall(request).execute();
+            return response.body().string();
+        }
+    }
 }

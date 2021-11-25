@@ -2,6 +2,7 @@ package it.ciper.home.viewSearch;
 
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,11 +21,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
+import java.util.LinkedList;
 import java.util.List;
 
 import it.ciper.MainActivity;
 import it.ciper.R;
+import it.ciper.api.interfacce.ProductInterfaceApi;
 import it.ciper.data.DataCenter;
+import it.ciper.data.dataClasses.product.categories.CategoryAPI;
 
 
 public class RecViewCategoryAdapter extends RecyclerView.Adapter<RecViewCategoryAdapter.ViewHolder> {
@@ -41,11 +46,14 @@ public class RecViewCategoryAdapter extends RecyclerView.Adapter<RecViewCategory
     protected MainActivity mainActivity;
     protected DataCenter dataCenter;
 
+    protected List<CategoryAPI> categorie;
+
     public void setParams(Activity activity, Context context, MainActivity mainActivity, DataCenter dataCenter){
         this.activity = activity;
         this.context = context;
         this.mainActivity = mainActivity;
         this.dataCenter = dataCenter;
+        categorie = dataCenter.getAllCategoties();
     }
 
 
@@ -58,9 +66,10 @@ public class RecViewCategoryAdapter extends RecyclerView.Adapter<RecViewCategory
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.textCategory.setText(lista[position]);
+        holder.textCategory.setText(categorie.get(position).getName());
+
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +80,7 @@ public class RecViewCategoryAdapter extends RecyclerView.Adapter<RecViewCategory
 
     @Override
     public int getItemCount() {
-        return lista.length;
+        return categorie.size();
     }
 
 
