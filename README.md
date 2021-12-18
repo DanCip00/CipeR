@@ -2,4 +2,4 @@
 
 Android Studio Application Demo
 
-[presentation idea](Presentation.pdf)
+[presentation](Presentation.pdf)
