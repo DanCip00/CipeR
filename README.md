@@ -2,4 +2,4 @@
 
 Android Studio Application Demo
 
-[a relative link](presentation.pdf)
+[presentation idea](presentation.pdf)
